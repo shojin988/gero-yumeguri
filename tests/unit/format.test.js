@@ -26,7 +26,7 @@ test('formatWalk names the starting point', () => {
 test('statusLabel names every status', () => {
   assert.deepEqual(['open', 'later', 'closed', 'paused'].map(statusLabel), ['今から入れる', '今日このあと入れる', '今日は入れない', '今は入れない']);
   setLanguage('en');
-  assert.deepEqual(['open', 'later', 'closed', 'paused'].map(statusLabel), ['Open now', 'Opens later today', 'Not today', 'Not accepting now']);
+  assert.deepEqual(['open', 'later', 'closed', 'paused'].map(statusLabel), ['Open now', 'Opens later today', 'Not today', 'Not accepting pass users now']);
 });
 
 test('formatLive names each bath, or merges baths that say the same thing', () => {
