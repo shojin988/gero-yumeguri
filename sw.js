@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gero-yumeguri-v3';
+const CACHE_NAME = 'gero-yumeguri-v4';
 
 const ASSETS = [
   './',

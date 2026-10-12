@@ -17,6 +17,13 @@ const EXPECTED_FACILITY_COUNT = 18;
 const MAX_NON_WALKABLE_METERS = 20000;
 const STREET_VIEW_URL = /^https:\/\/www\.google\.com\/maps\/embed\?pb=!6m8!1m7!1s[A-Za-z0-9_-]+!2m2!1d(-?\d+(?:\.\d+)?)!2d(-?\d+(?:\.\d+)?)!3f\d+(?:\.\d+)?!4f-?\d+(?:\.\d+)?!5f\d+(?:\.\d+)?$/;
 const MAX_STREET_VIEW_METERS = 120;
+// 翻訳の文字に、その言語では使わない文字（かな・漢字・ハングル）が混ざっていないかを確かめる
+const FORBIDDEN_SCRIPTS = {
+  en: /[぀-ヿ一-鿿가-힯]/,
+  'zh-Hant': /[぀-ヿ가-힯]/,
+  'zh-Hans': /[぀-ヿ가-힯]/,
+  ko: /[぀-ヿ一-鿿]/,
+};
 
 const inGero = ({ lat, lng }) => typeof lat === 'number' && typeof lng === 'number'
   && lat >= GERO_BOUNDS.minLat && lat <= GERO_BOUNDS.maxLat
@@ -26,7 +33,10 @@ test('top-level fields', () => {
   assert.match(data.checkedOn, DATE);
   assert.equal('tegata' in data, false, 'the public version keeps no pass price');
   assert.equal(data.places.geroStation.name, '下呂駅');
-  assert.equal(data.places.geroStation.i18n.en.name, 'Gero Station');
+  assert.deepEqual(
+    Object.fromEntries(Object.entries(data.places.geroStation.i18n).map(([language, place]) => [language, place.name])),
+    { en: 'Gero Station', 'zh-Hant': '下呂站', 'zh-Hans': '下吕站', ko: '게로역' },
+  );
   assert.ok(inGero(data.places.geroStation), 'station must be inside Gero');
 });
 
@@ -65,14 +75,16 @@ for (const facility of data.facilities) {
     assert.ok(sources.includes(facility.name), 'data/sources.md must mention the facility');
   });
 
-  test(`${facility.id}: english text`, () => {
-    const english = facility.i18n?.en;
-    assert.ok(english && english.name.length > 0, 'needs an English name');
-    assert.equal(english.notes.length, facility.notes.length, 'needs one English note per note');
-    for (const text of [english.name, ...english.notes]) {
-      assert.equal(/[\u3040-\u30ff\u4e00-\u9fff]/.test(text), false, `not English: ${text}`);
-    }
-  });
+  for (const [language, forbidden] of Object.entries(FORBIDDEN_SCRIPTS)) {
+    test(`${facility.id}: ${language} text`, () => {
+      const translated = facility.i18n?.[language];
+      assert.ok(translated && translated.name.length > 0, `needs a ${language} name`);
+      assert.equal(translated.notes.length, facility.notes.length, `needs one ${language} note per note`);
+      for (const text of [translated.name, ...translated.notes]) {
+        assert.equal(forbidden.test(text), false, `not ${language}: ${text}`);
+      }
+    });
+  }
 
   test(`${facility.id}: congestion place ids`, () => {
     assert.ok(Array.isArray(facility.congestionPlaceIds));

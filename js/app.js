@@ -5,7 +5,7 @@ import { buildFacilityItems } from './facility-items.js';
 import { positionAfterError, resolveOrigin } from './geo.js';
 import { buildDayContext, daysBetween, minutesOfDay, toDateKey } from './hours.js';
 import {
-  currentLanguage, loadLanguage, placeName, resolveLanguage, saveLanguage, setLanguage, t, translateDocument,
+  LANGUAGES, LANGUAGE_NAMES, currentLanguage, loadLanguage, placeName, resolveLanguage, saveLanguage, setLanguage, t, translateDocument,
 } from './i18n.js';
 import { createMapView } from './map-view.js';
 import { createListView } from './list-view.js';
@@ -34,7 +34,7 @@ const elements = {
   notices: document.getElementById('notices'),
   offlineBadge: document.getElementById('offline-badge'),
   infoButton: document.getElementById('info-button'),
-  languageButton: document.getElementById('language-button'),
+  languageSelect: document.getElementById('language-select'),
   infoDialog: document.getElementById('info-dialog'),
   infoCheckedOn: document.getElementById('info-checked-on'),
   infoStale: document.getElementById('info-stale'),
@@ -196,12 +196,17 @@ async function loadHolidays() {
   }
 }
 
-function switchLanguage() {
-  const next = currentLanguage() === 'ja' ? 'en' : 'ja';
+function switchLanguage(next) {
   saveLanguage(next);
   const url = new URL(location.href);
   url.searchParams.set('lang', next);
   location.replace(url);
+}
+
+function setupLanguageSelect() {
+  elements.languageSelect.replaceChildren(...LANGUAGES.map((code) => el('option', { value: code, lang: code, text: LANGUAGE_NAMES[code] })));
+  elements.languageSelect.value = currentLanguage();
+  elements.languageSelect.addEventListener('change', () => switchLanguage(elements.languageSelect.value));
 }
 
 function setupChrome() {
@@ -209,7 +214,7 @@ function setupChrome() {
     button.addEventListener('click', () => selectTab(button.dataset.tab));
   }
   elements.infoButton.addEventListener('click', () => elements.infoDialog.showModal());
-  elements.languageButton.addEventListener('click', switchLanguage);
+  setupLanguageSelect();
   window.addEventListener('online', updateOnlineBadge);
   window.addEventListener('offline', updateOnlineBadge);
   document.addEventListener('visibilitychange', handleVisibilityChange);

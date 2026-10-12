@@ -8,6 +8,15 @@
       "i18n": {
         "en": {
           "name": "Gero Station"
+        },
+        "zh-Hant": {
+          "name": "下呂站"
+        },
+        "zh-Hans": {
+          "name": "下吕站"
+        },
+        "ko": {
+          "name": "게로역"
         }
       }
     }
@@ -67,6 +76,27 @@
           "notes": [
             "Only one of the inn's baths; the Rinsenkaku baths are not included",
             "No parking for pass users"
+          ]
+        },
+        "zh-Hant": {
+          "name": "水明館",
+          "notes": [
+            "僅限館內一處浴場，臨川閣不可使用",
+            "手形使用者不可使用停車場"
+          ]
+        },
+        "zh-Hans": {
+          "name": "水明馆",
+          "notes": [
+            "仅限馆内一处浴场，临川阁不可使用",
+            "手形使用者不可使用停车场"
+          ]
+        },
+        "ko": {
+          "name": "스이메이칸",
+          "notes": [
+            "관내 욕장 중 1곳만 이용 가능(린센카쿠는 이용 불가)",
+            "데가타 이용자는 주차장 이용 불가"
           ]
         }
       }
@@ -130,6 +160,27 @@
             "No parking for pass users on weekends",
             "Holiday hours are not stated officially; this app assumes the weekend hours"
           ]
+        },
+        "zh-Hant": {
+          "name": "望川館",
+          "notes": [
+            "週末手形使用者不可使用停車場",
+            "官方未載明假日時間，本應用程式視同週末時間"
+          ]
+        },
+        "zh-Hans": {
+          "name": "望川馆",
+          "notes": [
+            "周末手形使用者不可使用停车场",
+            "官方未注明假日时间，本应用视同周末时间"
+          ]
+        },
+        "ko": {
+          "name": "보센칸",
+          "notes": [
+            "주말에는 데가타 이용자 주차장 이용 불가",
+            "공휴일 시간은 공식적으로 명시되어 있지 않아 이 앱에서는 주말 시간으로 간주합니다"
+          ]
         }
       }
     },
@@ -192,6 +243,27 @@
             "Weekdays only (not on days before holidays, holidays, Golden Week, Obon, New Year or other days set by the hotel)",
             "Not available when the car park is full or when it snows"
           ]
+        },
+        "zh-Hant": {
+          "name": "下呂觀光飯店",
+          "notes": [
+            "僅限平日（假日前一天、假日、黃金週、盂蘭盆節、年末年初及指定日不可）",
+            "停車場客滿時或積雪時不可使用"
+          ]
+        },
+        "zh-Hans": {
+          "name": "下吕观光酒店",
+          "notes": [
+            "仅限平日（假日前一天、假日、黄金周、盂兰盆节、年末年初及指定日不可）",
+            "停车场满位时或积雪时不可使用"
+          ]
+        },
+        "ko": {
+          "name": "게로 관광호텔",
+          "notes": [
+            "평일만(공휴일 전날·공휴일·골든위크·오봉·연말연시·지정일 불가)",
+            "주차장이 만차이거나 눈이 쌓였을 때는 이용 불가"
+          ]
         }
       }
     },
@@ -244,9 +316,27 @@
       ],
       "i18n": {
         "en": {
-          "name": "Yamagataya",
+          "name": "Gero Onsen Yamagataya",
           "notes": [
             "No access by car (no parking)"
+          ]
+        },
+        "zh-Hant": {
+          "name": "下呂溫泉山形屋",
+          "notes": [
+            "不可開車前往（無停車場）"
+          ]
+        },
+        "zh-Hans": {
+          "name": "下吕温泉山形屋",
+          "notes": [
+            "不可开车前往（无停车场）"
+          ]
+        },
+        "ko": {
+          "name": "게로 온천 야마가타야",
+          "notes": [
+            "자동차 이용 불가(주차장 없음)"
           ]
         }
       }
@@ -318,6 +408,30 @@
             "On weekends you may be turned away when it is crowded, even within the hours",
             "Holiday hours are not stated officially; this app assumes the weekend hours"
           ]
+        },
+        "zh-Hant": {
+          "name": "小川屋",
+          "notes": [
+            "不可開車前往（無停車場）",
+            "週末即使在時間內也可能因擁擠而無法入浴",
+            "官方未載明假日時間，本應用程式視同週末時間"
+          ]
+        },
+        "zh-Hans": {
+          "name": "小川屋",
+          "notes": [
+            "不可开车前往（无停车场）",
+            "周末即使在时间内也可能因拥挤而无法入浴",
+            "官方未注明假日时间，本应用视同周末时间"
+          ]
+        },
+        "ko": {
+          "name": "오가와야",
+          "notes": [
+            "자동차 이용 불가(주차장 없음)",
+            "주말에는 시간 내라도 혼잡하면 거절될 수 있음",
+            "공휴일 시간은 공식적으로 명시되어 있지 않아 이 앱에서는 주말 시간으로 간주합니다"
+          ]
         }
       }
     },
@@ -364,6 +478,30 @@
             "No parking for pass users",
             "Children are not allowed"
           ]
+        },
+        "zh-Hant": {
+          "name": "川上屋花水亭",
+          "notes": [
+            "僅限平日，每天限一組",
+            "手形使用者不可使用停車場",
+            "兒童不可使用"
+          ]
+        },
+        "zh-Hans": {
+          "name": "川上屋花水亭",
+          "notes": [
+            "仅限平日，每天限一组",
+            "手形使用者不可使用停车场",
+            "儿童不可使用"
+          ]
+        },
+        "ko": {
+          "name": "가와카미야카스이테이",
+          "notes": [
+            "평일만, 하루 1팀",
+            "데가타 이용자는 주차장 이용 불가",
+            "어린이 이용 불가"
+          ]
         }
       }
     },
@@ -407,6 +545,18 @@
         "en": {
           "name": "Sasara",
           "notes": []
+        },
+        "zh-Hant": {
+          "name": "紗紗羅",
+          "notes": []
+        },
+        "zh-Hans": {
+          "name": "纱纱罗",
+          "notes": []
+        },
+        "ko": {
+          "name": "사사라",
+          "notes": []
         }
       }
     },
@@ -447,10 +597,31 @@
       ],
       "i18n": {
         "en": {
-          "name": "Hotel Kusakabe Almeria",
+          "name": "Kusakabe Armeria",
           "notes": [
             "Weekdays only (except days set by the hotel)",
             "Only the large bath on the 2nd floor of the main building (not the 8th floor bath)"
+          ]
+        },
+        "zh-Hant": {
+          "name": "KUSAKABE Armeria",
+          "notes": [
+            "僅限平日（飯店指定日不可）",
+            "僅限本館2樓大浴場（8樓大浴場不可使用）"
+          ]
+        },
+        "zh-Hans": {
+          "name": "日下部阿尔梅里亚",
+          "notes": [
+            "仅限平日（酒店指定日不可）",
+            "仅限本馆2楼大浴场（8楼大浴场不可使用）"
+          ]
+        },
+        "ko": {
+          "name": "구사카베 아르메리아",
+          "notes": [
+            "평일만(호텔 지정일 불가)",
+            "본관 2층 대욕장만(8층 대욕장은 이용 불가)"
           ]
         }
       }
@@ -519,6 +690,30 @@
             "You may be turned away when it is busy",
             "Holiday hours are not stated officially; this app assumes the Sunday hours"
           ]
+        },
+        "zh-Hant": {
+          "name": "吉泉館竹翠亭",
+          "notes": [
+            "家庭浴池全時段不可使用",
+            "使用者多時可能無法入浴",
+            "官方未載明假日時間，本應用程式視同週日時間"
+          ]
+        },
+        "zh-Hans": {
+          "name": "吉泉馆竹翠亭",
+          "notes": [
+            "家庭浴池全时段不可使用",
+            "使用者多时可能无法入浴",
+            "官方未注明假日时间，本应用视同周日时间"
+          ]
+        },
+        "ko": {
+          "name": "깃센칸치쿠스이테이",
+          "notes": [
+            "가족탕은 모든 시간 이용 불가",
+            "이용객이 많으면 거절될 수 있음",
+            "공휴일 시간은 공식적으로 명시되어 있지 않아 이 앱에서는 일요일 시간으로 간주합니다"
+          ]
         }
       }
     },
@@ -560,6 +755,18 @@
       "i18n": {
         "en": {
           "name": "Ooedo Onsen Monogatari Premium Gero Honkan",
+          "notes": []
+        },
+        "zh-Hant": {
+          "name": "大江戶溫泉物語 Premium 下呂本館",
+          "notes": []
+        },
+        "zh-Hans": {
+          "name": "大江户温泉物语 Premium 下吕本馆",
+          "notes": []
+        },
+        "ko": {
+          "name": "오에도 온센 모노가타리 프리미엄 게로 본관",
           "notes": []
         }
       }
@@ -605,6 +812,27 @@
           "notes": [
             "Weekdays only",
             "No parking for pass users"
+          ]
+        },
+        "zh-Hant": {
+          "name": "大江戶溫泉物語 下呂別館",
+          "notes": [
+            "僅限平日",
+            "手形使用者不可使用停車場"
+          ]
+        },
+        "zh-Hans": {
+          "name": "大江户温泉物语 下吕别馆",
+          "notes": [
+            "仅限平日",
+            "手形使用者不可使用停车场"
+          ]
+        },
+        "ko": {
+          "name": "오에도 온센 모노가타리 게로 별관",
+          "notes": [
+            "평일만",
+            "데가타 이용자는 주차장 이용 불가"
           ]
         }
       }
@@ -653,6 +881,30 @@
             "Babies and small children are not allowed",
             "No parking for pass users"
           ]
+        },
+        "zh-Hant": {
+          "name": "木曾屋",
+          "notes": [
+            "僅限平日",
+            "嬰幼兒不可使用",
+            "手形使用者不可使用停車場"
+          ]
+        },
+        "zh-Hans": {
+          "name": "木曾屋",
+          "notes": [
+            "仅限平日",
+            "婴幼儿不可使用",
+            "手形使用者不可使用停车场"
+          ]
+        },
+        "ko": {
+          "name": "기소야",
+          "notes": [
+            "평일만",
+            "영유아 이용 불가",
+            "데가타 이용자는 주차장 이용 불가"
+          ]
         }
       }
     },
@@ -698,6 +950,24 @@
           "name": "Fugaku",
           "notes": [
             "No parking"
+          ]
+        },
+        "zh-Hant": {
+          "name": "富岳",
+          "notes": [
+            "無停車場"
+          ]
+        },
+        "zh-Hans": {
+          "name": "富岳",
+          "notes": [
+            "无停车场"
+          ]
+        },
+        "ko": {
+          "name": "후가쿠",
+          "notes": [
+            "주차장 없음"
           ]
         }
       }
@@ -763,6 +1033,30 @@
             "Not available in August, November, at New Year or in Golden Week",
             "No parking for pass users"
           ]
+        },
+        "zh-Hant": {
+          "name": "睦館",
+          "notes": [
+            "僅限每週四（官方未載明遇假日的週四，本應用程式視為不可使用）",
+            "8月、11月、年末年初、黃金週不可使用",
+            "手形使用者不可使用停車場"
+          ]
+        },
+        "zh-Hans": {
+          "name": "睦馆",
+          "notes": [
+            "仅限每周四（官方未注明遇假日的周四，本应用视为不可使用）",
+            "8月、11月、年末年初、黄金周不可使用",
+            "手形使用者不可使用停车场"
+          ]
+        },
+        "ko": {
+          "name": "무쓰미칸",
+          "notes": [
+            "매주 목요일만(공휴일인 목요일은 공식적으로 명시되어 있지 않아 이용 불가로 간주)",
+            "8월·11월·연말연시·골든위크는 이용 불가",
+            "데가타 이용자는 주차장 이용 불가"
+          ]
         }
       }
     },
@@ -811,6 +1105,27 @@
           "notes": [
             "About 20 min by car from Gero Station (free shuttle, reservation required). Not reachable on foot",
             "Closed about one weekday a week"
+          ]
+        },
+        "zh-Hant": {
+          "name": "神明山莊",
+          "notes": [
+            "從下呂站開車約20分鐘（有免費接駁，需預約）。無法步行前往",
+            "平日每週約休息一天"
+          ]
+        },
+        "zh-Hans": {
+          "name": "神明山庄",
+          "notes": [
+            "从下吕站开车约20分钟（有免费接驳，需预约）。无法步行前往",
+            "平日每周约休息一天"
+          ]
+        },
+        "ko": {
+          "name": "신메이산소",
+          "notes": [
+            "게로역에서 자동차로 약 20분(무료 송영 있음, 예약 필요). 도보로는 갈 수 없음",
+            "평일 주 1회 정도 휴무"
           ]
         }
       }
@@ -872,6 +1187,27 @@
             "Closed on irregular days",
             "You may be turned away when the car park is full or it is busy"
           ]
+        },
+        "zh-Hant": {
+          "name": "飛驒山莊",
+          "notes": [
+            "不定期休息",
+            "停車場客滿或使用者多時可能無法入浴"
+          ]
+        },
+        "zh-Hans": {
+          "name": "飞驒山庄",
+          "notes": [
+            "不定期休息",
+            "停车场满位或使用者多时可能无法入浴"
+          ]
+        },
+        "ko": {
+          "name": "히다산소",
+          "notes": [
+            "부정기 휴무",
+            "주차장이 만차이거나 이용객이 많으면 거절될 수 있음"
+          ]
         }
       }
     },
@@ -918,6 +1254,24 @@
           "notes": [
             "Closed on Wednesdays (when a holiday falls on a Wednesday is not stated officially; this app assumes it is open)"
           ]
+        },
+        "zh-Hant": {
+          "name": "白鷺之湯",
+          "notes": [
+            "週三公休（官方未載明遇假日時的處理，本應用程式視為營業）"
+          ]
+        },
+        "zh-Hans": {
+          "name": "白鹭之汤",
+          "notes": [
+            "周三休息（官方未注明遇假日时的处理，本应用视为营业）"
+          ]
+        },
+        "ko": {
+          "name": "시라사기노유",
+          "notes": [
+            "수요일 정기 휴무(공휴일과 겹칠 때는 공식적으로 명시되어 있지 않아 영업으로 간주)"
+          ]
         }
       }
     },
@@ -963,6 +1317,24 @@
           "name": "Kurgarten Open-Air Bath",
           "notes": [
             "Closed on Thursdays (when a holiday falls on a Thursday is not stated officially; this app assumes it is open)"
+          ]
+        },
+        "zh-Hant": {
+          "name": "Kurgarten 露天溫泉",
+          "notes": [
+            "週四公休（官方未載明遇假日時的處理，本應用程式視為營業）"
+          ]
+        },
+        "zh-Hans": {
+          "name": "Kurgarten 露天温泉",
+          "notes": [
+            "周四休息（官方未注明遇假日时的处理，本应用视为营业）"
+          ]
+        },
+        "ko": {
+          "name": "쿠어가르텐 노천탕",
+          "notes": [
+            "목요일 정기 휴무(공휴일과 겹칠 때는 공식적으로 명시되어 있지 않아 영업으로 간주)"
           ]
         }
       }

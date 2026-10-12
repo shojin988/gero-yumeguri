@@ -1,9 +1,14 @@
 import { MESSAGES } from './messages.js';
 
-export const LANGUAGES = Object.freeze(['ja', 'en']);
+export const LANGUAGES = Object.freeze(['ja', 'en', 'zh-Hant', 'zh-Hans', 'ko']);
+// 言語の選択肢は、その言語での名前で書く
+export const LANGUAGE_NAMES = Object.freeze({
+  ja: '日本語', en: 'English', 'zh-Hant': '繁體中文', 'zh-Hans': '简体中文', ko: '한국어',
+});
 export const LANGUAGE_STORAGE_KEY = 'gero-yumeguri:language:v1';
 const DEFAULT_LANGUAGE = 'ja';
-const LOCALES = Object.freeze({ ja: 'ja', en: 'en' });
+const LOCALES = Object.freeze({ ja: 'ja', en: 'en', 'zh-Hant': 'zh-Hant', 'zh-Hans': 'zh-Hans', ko: 'ko' });
+const TRADITIONAL_CHINESE = /^zh-(tw|hk|mo|hant)/;
 
 let language = DEFAULT_LANGUAGE;
 
@@ -17,7 +22,18 @@ function browserStorage() {
   }
 }
 
-// URLの ?lang= → 前回選んだ言語 → 端末の言語の順に決める。日本語以外の端末は英語にする。
+function languageOfDevice(tag) {
+  const lower = tag.toLowerCase();
+  if (lower.startsWith('ja')) {
+    return 'ja';
+  }
+  if (lower.startsWith('zh')) {
+    return TRADITIONAL_CHINESE.test(lower) ? 'zh-Hant' : 'zh-Hans';
+  }
+  return lower.startsWith('ko') ? 'ko' : 'en';
+}
+
+// URLの ?lang= → 前回選んだ言語 → 端末の言語の順に決める。対応していない言語の端末は英語にする。
 export function resolveLanguage({ search = '', saved = null, deviceLanguages = [] } = {}) {
   const fromUrl = new URLSearchParams(search).get('lang');
   if (isSupported(fromUrl)) {
@@ -29,7 +45,7 @@ export function resolveLanguage({ search = '', saved = null, deviceLanguages = [
   if (deviceLanguages.length === 0) {
     return DEFAULT_LANGUAGE;
   }
-  return deviceLanguages[0].toLowerCase().startsWith('ja') ? 'ja' : 'en';
+  return languageOfDevice(deviceLanguages[0]);
 }
 
 export function loadLanguage(storage = browserStorage()) {
@@ -92,14 +108,8 @@ export function facilityNotes(facility) {
   return translated(facility)?.notes ?? facility.notes;
 }
 
-// 切り替えボタンは切り替え先の言語で書かれている
-const OTHER_LANGUAGE = Object.freeze({ ja: 'en', en: 'ja' });
-
 export function translateDocument(doc) {
   doc.documentElement.lang = language;
-  for (const node of doc.querySelectorAll('[data-i18n-other-language]')) {
-    node.lang = OTHER_LANGUAGE[language];
-  }
   for (const node of doc.querySelectorAll('[data-i18n]')) {
     node.textContent = t(node.dataset.i18n);
   }

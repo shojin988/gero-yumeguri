@@ -126,4 +126,5 @@ dialog::backdrop { background: #00000066; }
 .live-crowded { background: #ffe5cc; color: #8a3b00; border-color: #ffb74d; }
 .live-full, .live-unavailable { background: #fde2e1; color: #a12622; border-color: #ef9a9a; }
 .live-closed, .live-unknown { background: #eeeeee; color: #555555; border-color: #d6d6d6; }
-.language-button { min-height: 44px; padding: 4px 12px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 999px; background: none; color: inherit; font-size: .85rem; }
+.language-select { min-height: 44px; max-width: 8.5em; padding: 4px 8px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 999px; background: none; color: inherit; font-size: .85rem; }
+.language-select option { color: var(--text); background: #ffffff; }

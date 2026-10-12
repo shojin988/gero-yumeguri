@@ -1,7 +1,7 @@
 import { afterEach, test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  LANGUAGES, currentLanguage, facilityName, facilityNotes, loadLanguage, placeName, resolveLanguage, saveLanguage, setLanguage, t,
+  LANGUAGES, LANGUAGE_NAMES, currentLanguage, facilityName, facilityNotes, loadLanguage, placeName, resolveLanguage, saveLanguage, setLanguage, t,
 } from '../../js/i18n.js';
 import { MESSAGES } from '../../js/messages.js';
 
@@ -12,20 +12,29 @@ function memoryStorage(initial = {}) {
   return { getItem: (key) => values.get(key) ?? null, setItem: (key, value) => values.set(key, String(value)) };
 }
 
-test('offers Japanese and English', () => {
-  assert.deepEqual(LANGUAGES, ['ja', 'en']);
+test('offers Japanese, English, Chinese and Korean', () => {
+  assert.deepEqual(LANGUAGES, ['ja', 'en', 'zh-Hant', 'zh-Hans', 'ko']);
+  assert.deepEqual(Object.keys(LANGUAGE_NAMES), LANGUAGES);
+  assert.equal(LANGUAGE_NAMES['zh-Hant'], '繁體中文');
 });
 
 test('resolveLanguage prefers the URL, then the saved choice, then the device', () => {
   assert.equal(resolveLanguage({ search: '?lang=en', saved: 'ja', deviceLanguages: ['ja-JP'] }), 'en');
-  assert.equal(resolveLanguage({ search: '?lang=xx', saved: 'en', deviceLanguages: ['ja-JP'] }), 'en');
+  assert.equal(resolveLanguage({ search: '?lang=ko', saved: 'ja', deviceLanguages: ['ja-JP'] }), 'ko');
+  assert.equal(resolveLanguage({ search: '?lang=xx', saved: 'zh-Hans', deviceLanguages: ['ja-JP'] }), 'zh-Hans');
   assert.equal(resolveLanguage({ search: '', saved: null, deviceLanguages: ['ja-JP', 'en'] }), 'ja');
   assert.equal(resolveLanguage({ search: '', saved: null, deviceLanguages: ['en-US'] }), 'en');
 });
 
-test('resolveLanguage uses English for devices that are not set to Japanese', () => {
-  assert.equal(resolveLanguage({ search: '', saved: null, deviceLanguages: ['zh-TW'] }), 'en');
-  assert.equal(resolveLanguage({ search: '', saved: null, deviceLanguages: ['ko'] }), 'en');
+test('resolveLanguage picks Chinese and Korean from the device', () => {
+  const fromDevice = (language) => resolveLanguage({ search: '', saved: null, deviceLanguages: [language] });
+  assert.equal(fromDevice('zh-TW'), 'zh-Hant');
+  assert.equal(fromDevice('zh-HK'), 'zh-Hant');
+  assert.equal(fromDevice('zh-Hant-TW'), 'zh-Hant');
+  assert.equal(fromDevice('zh-CN'), 'zh-Hans');
+  assert.equal(fromDevice('zh'), 'zh-Hans');
+  assert.equal(fromDevice('ko-KR'), 'ko');
+  assert.equal(fromDevice('fr-FR'), 'en');
 });
 
 test('resolveLanguage falls back to Japanese without any hint', () => {
@@ -66,23 +75,36 @@ test('setLanguage ignores unsupported languages', () => {
 });
 
 // 言語の切り替えボタンだけは、切り替え先の言語（日本語）で書く
-const NATIVE_NAME_KEYS = new Set(['header.language']);
+const KANA = /[\u3040-\u30ff]/;
+const HAN = /[\u4e00-\u9fff]/;
+const HANGUL = /[\uac00-\ud7af]/;
+// 各言語の文言に、ほかの言語の文字が混ざっていないかを確かめる
+const FORBIDDEN = { en: [KANA, HAN, HANGUL], 'zh-Hant': [KANA, HANGUL], 'zh-Hans': [KANA, HANGUL], ko: [KANA, HAN] };
 
-test('Japanese and English have exactly the same message keys', () => {
-  assert.deepEqual(Object.keys(MESSAGES.en).sort(), Object.keys(MESSAGES.ja).sort());
-  for (const [key, text] of Object.entries(MESSAGES.en)) {
-    assert.ok(typeof text === 'string' && text.length > 0, `${key} is empty`);
-    if (NATIVE_NAME_KEYS.has(key)) {
-      continue;
-    }
-    assert.equal(/[぀-ヿ一-鿿]/.test(text), false, `${key} contains Japanese: ${text}`);
+test('every language has exactly the Japanese message keys', () => {
+  const keys = Object.keys(MESSAGES.ja).sort();
+  for (const language of LANGUAGES) {
+    assert.deepEqual(Object.keys(MESSAGES[language]).sort(), keys, language);
   }
 });
 
-test('Japanese and English use the same parameters in each message', () => {
+test('every message is written only in its own language', () => {
+  for (const [language, patterns] of Object.entries(FORBIDDEN)) {
+    for (const [key, text] of Object.entries(MESSAGES[language])) {
+      assert.ok(typeof text === 'string' && text.length > 0, `${language} ${key} is empty`);
+      for (const pattern of patterns) {
+        assert.equal(pattern.test(text), false, `${language} ${key}: ${text}`);
+      }
+    }
+  }
+});
+
+test('every language uses the same parameters in each message', () => {
   const params = (text) => [...text.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort();
-  for (const key of Object.keys(MESSAGES.ja)) {
-    assert.deepEqual(params(MESSAGES.en[key]), params(MESSAGES.ja[key]), key);
+  for (const language of LANGUAGES) {
+    for (const key of Object.keys(MESSAGES.ja)) {
+      assert.deepEqual(params(MESSAGES[language][key]), params(MESSAGES.ja[key]), `${language} ${key}`);
+    }
   }
 });
 
