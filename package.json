@@ -1,0 +1,16 @@
+{
+  "name": "gero-yumeguri",
+  "version": "0.1.0",
+  "private": true,
+  "description": "下呂温泉 湯めぐり手形プランナー（PWA）",
+  "type": "module",
+  "scripts": {
+    "serve": "node tools/serve.js",
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-exclude=tests/** --test-coverage-lines=80",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

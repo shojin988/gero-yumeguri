@@ -1,0 +1,971 @@
+{
+  "checkedOn": "2026-09-27",
+  "places": {
+    "geroStation": {
+      "name": "下呂駅",
+      "lat": 35.80582,
+      "lng": 137.23955,
+      "i18n": {
+        "en": {
+          "name": "Gero Station"
+        }
+      }
+    }
+  },
+  "facilities": [
+    {
+      "id": "suimeikan",
+      "name": "水明館",
+      "lat": 35.80514,
+      "lng": 137.24132,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "14:00"
+            }
+          ]
+        },
+        {
+          "days": [
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "13:00",
+              "end": "14:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.suimeikan.co.jp/oneday/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B0%B4%E6%98%8E%E9%A4%A8%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1sfnpa3-jcX6grJAi2sHSR_Q!2m2!1d35.8057231!2d137.2406716!3f50.0!4f8!5f0.8",
+      "congestionPlaceIds": [
+        "70df178a-c70d-4e55-8b27-fec1ba884813",
+        "3f808ccf-0fb4-4cc5-9498-5ca2e3477624"
+      ],
+      "notes": [
+        "臨川閣は利用不可、1か所のみ",
+        "駐車場利用不可"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Suimeikan",
+          "notes": [
+            "Only one of the inn's baths; the Rinsenkaku baths are not included",
+            "No parking for pass users"
+          ]
+        }
+      }
+    },
+    {
+      "id": "bosenkan",
+      "name": "望川館",
+      "lat": 35.81144,
+      "lng": 137.23747,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "18:00",
+              "end": "20:00"
+            }
+          ]
+        },
+        {
+          "days": [
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "14:00"
+            },
+            {
+              "start": "18:00",
+              "end": "20:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.bosenkan.co.jp/onsen/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9C%9B%E5%B7%9D%E9%A4%A8%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1sOtzTxQiHmAaoGvN4WUx0kw!2m2!1d35.8117914!2d137.2377368!3f148.0!4f10!5f0.9",
+      "congestionPlaceIds": [
+        "8e98312d-39fd-4f00-9be2-83af6aaefbdb",
+        "58212b3d-021a-4834-be69-e225f3dba9e1"
+      ],
+      "notes": [
+        "駐車場利用不可（土日のみ）",
+        "祝日の時間は公式に記載がないため土日と同じとみなしています"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Bosenkan",
+          "notes": [
+            "No parking for pass users on weekends",
+            "Holiday hours are not stated officially; this app assumes the weekend hours"
+          ]
+        }
+      }
+    },
+    {
+      "id": "gero-kanko-hotel",
+      "name": "下呂観光ホテル",
+      "lat": 35.81053,
+      "lng": 137.23381,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "10:30",
+              "end": "12:00",
+              "lastEntry": "11:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [
+        {
+          "from": "04-29",
+          "to": "05-05",
+          "label": "GW"
+        },
+        {
+          "from": "08-13",
+          "to": "08-16",
+          "label": "お盆"
+        },
+        {
+          "from": "12-29",
+          "to": "01-03",
+          "label": "年末年始"
+        }
+      ],
+      "closedBeforeHoliday": true,
+      "officialUrl": "https://www.geroyado.co.jp/honkan/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%B9%AF%E3%81%82%E3%81%9D%E3%81%B3%E3%81%AE%E5%AE%BF%20%E4%B8%8B%E5%91%82%E8%A6%B3%E5%85%89%E3%83%9B%E3%83%86%E3%83%AB",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "5b4ba0a8-5ec4-481e-93e7-33ff2471dcb3",
+        "acbebc7e-7567-48d5-b8af-d7f1ff2ebe9a"
+      ],
+      "notes": [
+        "平日のみ（休前日・休日・GW・お盆・年末年始・特定日は不可）",
+        "駐車場が満車のときと積雪時は不可"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Gero Kanko Hotel",
+          "notes": [
+            "Weekdays only (not on days before holidays, holidays, Golden Week, Obon, New Year or other days set by the hotel)",
+            "Not available when the car park is full or when it snows"
+          ]
+        }
+      }
+    },
+    {
+      "id": "yamagataya",
+      "name": "下呂温泉山形屋",
+      "lat": 35.81072,
+      "lng": 137.23869,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "18:00"
+            }
+          ]
+        },
+        {
+          "days": [
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "15:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.geroyamagataya.com/spa/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E4%B8%8B%E5%91%82%E6%B8%A9%E6%B3%89%E5%B1%B1%E5%BD%A2%E5%B1%8B%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1sMC78UW4Cjxqt584Zp2HOOw!2m2!1d35.8106623!2d137.2392338!3f277.5!4f5!5f0.8",
+      "congestionPlaceIds": [
+        "d97104e4-ecf1-4a1c-a40c-82fd67b4785e",
+        "ec5dd83c-d2eb-4206-924e-1ae9c8bdbb26"
+      ],
+      "notes": [
+        "車での利用は不可（駐車場なし）"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Yamagataya",
+          "notes": [
+            "No access by car (no parking)"
+          ]
+        }
+      }
+    },
+    {
+      "id": "ogawaya",
+      "name": "小川屋",
+      "lat": 35.80863,
+      "lng": 137.24192,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "wed",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "14:00"
+            }
+          ]
+        },
+        {
+          "days": [
+            "tue",
+            "thu"
+          ],
+          "windows": [
+            {
+              "start": "13:00",
+              "end": "14:00"
+            }
+          ]
+        },
+        {
+          "days": [
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "13:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.gero-ogawaya.net/how_to_spend/daytrip/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E5%B7%9D%E5%B1%8B%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1s2tfnNEyzIehDdJJjpL4Vgw!2m2!1d35.8087411!2d137.2422997!3f250!4f8!5f0.8",
+      "congestionPlaceIds": [
+        "658c6732-40bf-42d2-bd8f-7bd8179885e9",
+        "53e7f67d-9e05-48ee-9b5c-fffc0284a2a5"
+      ],
+      "notes": [
+        "車での利用は不可（駐車場なし）",
+        "週末は時間内でも混雑によりお断りの場合あり",
+        "祝日の時間は公式に記載がないため土日と同じとみなしています"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Ogawaya",
+          "notes": [
+            "No access by car (no parking)",
+            "On weekends you may be turned away when it is crowded, even within the hours",
+            "Holiday hours are not stated officially; this app assumes the weekend hours"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kasuitei",
+      "name": "川上屋花水亭",
+      "lat": 35.81196,
+      "lng": 137.23624,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "18:30",
+              "end": "19:30"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.kawakamiyakasuitei.jp/bath.html",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%B7%9D%E4%B8%8A%E5%B1%8B%E8%8A%B1%E6%B0%B4%E4%BA%AD%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "d156ebaa-d32b-4c8b-9c18-8583133f3028"
+      ],
+      "notes": [
+        "平日のみ、1日1組",
+        "駐車場利用不可",
+        "子どもは利用不可"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Kawakamiya Kasuitei",
+          "notes": [
+            "Weekdays only, one group per day",
+            "No parking for pass users",
+            "Children are not allowed"
+          ]
+        }
+      }
+    },
+    {
+      "id": "sasara",
+      "name": "紗々羅",
+      "lat": 35.8061,
+      "lng": 137.24488,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "12:00",
+              "end": "15:00",
+              "lastEntry": "14:30"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.sasara.co.jp/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E7%B4%97%E3%80%85%E7%BE%85%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1s58Zzd_Urr2J8pQGcqsKWQw!2m2!1d35.8061571!2d137.2449662!3f293!4f8!5f0.85",
+      "congestionPlaceIds": [
+        "f34b7929-e3ac-4c19-8dfe-8bed837bd582",
+        "3f241787-2553-44db-a59d-1e1e70210752"
+      ],
+      "notes": [],
+      "i18n": {
+        "en": {
+          "name": "Sasara",
+          "notes": []
+        }
+      }
+    },
+    {
+      "id": "almeria",
+      "name": "ホテルくさかべアルメリア",
+      "lat": 35.80862,
+      "lng": 137.23427,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "10:30",
+              "end": "12:30"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.armeria.co.jp/day_trip/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%9B%E3%83%86%E3%83%AB%E3%81%8F%E3%81%95%E3%81%8B%E3%81%B9%E3%82%A2%E3%83%AB%E3%83%A1%E3%83%AA%E3%82%A2%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "9b0cb972-cb07-4969-a47c-0b0d687ddd89",
+        "a7882f58-48b2-4839-b6cb-7cd1e9c65297"
+      ],
+      "notes": [
+        "平日のみ（当館の指定する日は不可）",
+        "本館2階大浴場のみ（8階大浴場は利用不可）"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Hotel Kusakabe Almeria",
+          "notes": [
+            "Weekdays only (except days set by the hotel)",
+            "Only the large bath on the 2nd floor of the main building (not the 8th floor bath)"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kissenkan",
+      "name": "吉泉館竹翠亭",
+      "lat": 35.8083,
+      "lng": 137.23829,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "12:30",
+              "end": "14:00",
+              "lastEntry": "13:30"
+            },
+            {
+              "start": "18:00",
+              "end": "20:00",
+              "lastEntry": "19:30"
+            }
+          ]
+        },
+        {
+          "days": [
+            "sat"
+          ],
+          "windows": [
+            {
+              "start": "12:30",
+              "end": "14:00",
+              "lastEntry": "13:30"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://kissenkan.com/spa.html",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%90%89%E6%B3%89%E9%A4%A8%E7%AB%B9%E7%BF%A0%E4%BA%AD%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1s42UXx4plGcbaRIvNFYlt9g!2m2!1d35.8083733!2d137.2381509!3f108!4f8!5f0.85",
+      "congestionPlaceIds": [
+        "113f1546-f8fd-4973-bffb-45edf335ae90",
+        "23f8c5ab-b48d-4264-9103-622fbd6b1732"
+      ],
+      "notes": [
+        "家族風呂はすべての時間で利用不可",
+        "利用客が多い場合はお断りの場合あり",
+        "祝日の時間は公式に記載がないため日曜と同じとみなしています"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Kissenkan Chikusuitei",
+          "notes": [
+            "Private family baths are never included",
+            "You may be turned away when it is busy",
+            "Holiday hours are not stated officially; this app assumes the Sunday hours"
+          ]
+        }
+      }
+    },
+    {
+      "id": "ooedo-premium",
+      "name": "大江戸温泉物語Premium 下呂本館",
+      "lat": 35.80644,
+      "lng": 137.23674,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "15:00",
+              "end": "21:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.ooedoonsen.jp/gero-honkan/day_trip/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%B1%9F%E6%88%B8%E6%B8%A9%E6%B3%89%E7%89%A9%E8%AA%9EPremium%20%E4%B8%8B%E5%91%82%E6%9C%AC%E9%A4%A8%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "d5d96e1f-6863-4fd2-bbdd-853ebe2367aa",
+        "b70251b0-ac07-40db-bb3b-d7bbdfaf60d8"
+      ],
+      "notes": [],
+      "i18n": {
+        "en": {
+          "name": "Ooedo Onsen Monogatari Premium Gero Honkan",
+          "notes": []
+        }
+      }
+    },
+    {
+      "id": "ooedo-bekkan",
+      "name": "大江戸温泉物語 下呂別館",
+      "lat": 35.81038,
+      "lng": 137.24084,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "17:00",
+              "end": "21:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.ooedoonsen.jp/gero-bekkan/day_trip/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%B1%9F%E6%88%B8%E6%B8%A9%E6%B3%89%E7%89%A9%E8%AA%9E%20%E4%B8%8B%E5%91%82%E5%88%A5%E9%A4%A8%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "1a6f966a-f0e4-4bb1-9c1f-2752c947b205",
+        "81ae7e16-a1fd-4729-81d5-e614ab8f976b"
+      ],
+      "notes": [
+        "平日のみ",
+        "駐車場利用不可"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Ooedo Onsen Monogatari Gero Bekkan",
+          "notes": [
+            "Weekdays only",
+            "No parking for pass users"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kisoya",
+      "name": "木曽屋",
+      "lat": 35.80525,
+      "lng": 137.24439,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "18:00",
+              "end": "20:30"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.gero-spa.or.jp/search/10.html",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E5%B1%8B%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1sDIMSmFgpwwykDBPl4PI6Fw!2m2!1d35.805411!2d137.2441422!3f100.0!4f8!5f0.8",
+      "congestionPlaceIds": [
+        "6a411e30-d2d5-4476-a1d9-97e7dd191c31",
+        "48bfaa95-7056-475a-a19d-c1bf3f994a0b"
+      ],
+      "notes": [
+        "平日のみ",
+        "乳幼児は利用不可",
+        "駐車場利用不可"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Kisoya",
+          "notes": [
+            "Weekdays only",
+            "Babies and small children are not allowed",
+            "No parking for pass users"
+          ]
+        }
+      }
+    },
+    {
+      "id": "fugaku",
+      "name": "冨岳",
+      "lat": 35.81037,
+      "lng": 137.23988,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "18:00",
+              "end": "20:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://gero-fugaku.com/spa/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E5%86%A8%E5%B2%B3%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1sO7hGh-zlJwq8tDeaNVcYWg!2m2!1d35.8103142!2d137.2397182!3f85.0!4f8!5f1.0",
+      "congestionPlaceIds": [
+        "302ca31f-e406-484b-a6a8-28a24bad389f",
+        "824a67a9-80f2-4e8d-b005-b92dce49283f"
+      ],
+      "notes": [
+        "駐車場なし"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Fugaku",
+          "notes": [
+            "No parking"
+          ]
+        }
+      }
+    },
+    {
+      "id": "mutsumikan",
+      "name": "睦館",
+      "lat": 35.80645,
+      "lng": 137.23982,
+      "schedule": [
+        {
+          "days": [
+            "thu"
+          ],
+          "windows": [
+            {
+              "start": "11:00",
+              "end": "12:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [
+        {
+          "from": "04-29",
+          "to": "05-05",
+          "label": "GW"
+        },
+        {
+          "from": "08-01",
+          "to": "08-31",
+          "label": "8月"
+        },
+        {
+          "from": "11-01",
+          "to": "11-30",
+          "label": "11月"
+        },
+        {
+          "from": "12-29",
+          "to": "01-03",
+          "label": "年末年始"
+        }
+      ],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.mutsumikan.co.jp/spa/index.html",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E7%9D%A6%E9%A4%A8%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "548fd8a4-1228-48f4-839b-61bb0c238186",
+        "b6aa6e50-ec73-40c8-9ee1-6a4e9dc87d73"
+      ],
+      "notes": [
+        "毎週木曜日のみ（祝日の木曜は公式に記載がないため不可とみなしています）",
+        "8月・11月・年末年始・GWは不可",
+        "駐車場利用不可"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Mutsumikan",
+          "notes": [
+            "Thursdays only (holiday Thursdays are not stated officially; this app assumes they are not available)",
+            "Not available in August, November, at New Year or in Golden Week",
+            "No parking for pass users"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shinmei-sanso",
+      "name": "トロン温泉神明山荘",
+      "lat": 35.77408,
+      "lng": 137.32878,
+      "walkable": false,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri",
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "14:00",
+              "end": "21:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://shinmeisansou.jp/access.php",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%83%88%E3%83%AD%E3%83%B3%E6%B8%A9%E6%B3%89%E7%A5%9E%E6%98%8E%E5%B1%B1%E8%8D%98%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "b67d0eb2-6822-4d36-82fd-34efd40f64b3",
+        "12867adb-400e-4df4-bb88-07569c8a8f52"
+      ],
+      "notes": [
+        "下呂駅から車で約20分（無料送迎あり・要予約）。徒歩では行けません",
+        "平日に週1回程度の休みあり"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Shinmei Sanso",
+          "notes": [
+            "About 20 min by car from Gero Station (free shuttle, reservation required). Not reachable on foot",
+            "Closed about one weekday a week"
+          ]
+        }
+      }
+    },
+    {
+      "id": "hida-sanso",
+      "name": "ひだ山荘",
+      "lat": 35.81052,
+      "lng": 137.24357,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "windows": [
+            {
+              "start": "15:00",
+              "end": "20:00",
+              "lastEntry": "19:30"
+            }
+          ]
+        },
+        {
+          "days": [
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "18:00",
+              "end": "20:00",
+              "lastEntry": "19:30"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://hidasanso.jp/hotsprings/",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%81%B2%E3%81%A0%E5%B1%B1%E8%8D%98%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": null,
+      "congestionPlaceIds": [
+        "c9c73437-73e1-469a-b6dc-c2cacf9e2811",
+        "1e7f91dc-6815-40b2-ba95-a95e2a517131"
+      ],
+      "notes": [
+        "不定休",
+        "駐車場が満車のときや利用客が多いときはお断りの場合あり"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Hida Sanso",
+          "notes": [
+            "Closed on irregular days",
+            "You may be turned away when the car park is full or it is busy"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shirasagi-no-yu",
+      "name": "白鷺乃湯",
+      "lat": 35.80932,
+      "lng": 137.24143,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "thu",
+            "fri",
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "10:00",
+              "end": "20:45",
+              "lastEntry": "20:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.gero-spa.com/spot/detail_3.html",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E9%B7%BA%E4%B9%83%E6%B9%AF%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1s219E5htmBBEZ_XzIIIIs0w!2m2!1d35.8093764!2d137.2416001!3f247.8!4f5!5f0.8",
+      "congestionPlaceIds": [
+        "716ab0ff-846c-477a-98cd-412fbb3bb0e1",
+        "d5ab513f-4e61-4d79-ace1-de0a08cdd482"
+      ],
+      "notes": [
+        "水曜定休（祝日と重なる場合の扱いは公式に記載なし。祝日は営業とみなしています）"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Shirasagi no Yu",
+          "notes": [
+            "Closed on Wednesdays (when a holiday falls on a Wednesday is not stated officially; this app assumes it is open)"
+          ]
+        }
+      }
+    },
+    {
+      "id": "kurgarten",
+      "name": "クアガーデン露天風呂",
+      "lat": 35.81008,
+      "lng": 137.23973,
+      "schedule": [
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "fri",
+            "sat",
+            "sun",
+            "hol"
+          ],
+          "windows": [
+            {
+              "start": "08:00",
+              "end": "20:45",
+              "lastEntry": "20:00"
+            }
+          ]
+        }
+      ],
+      "closedPeriods": [],
+      "closedBeforeHoliday": false,
+      "officialUrl": "https://www.gero-spa.com/spot/detail_4.html",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=%E3%82%AF%E3%82%A2%E3%82%AC%E3%83%BC%E3%83%87%E3%83%B3%E9%9C%B2%E5%A4%A9%E9%A2%A8%E5%91%82%20%E4%B8%8B%E5%91%82",
+      "streetViewUrl": "https://www.google.com/maps/embed?pb=!6m8!1m7!1sc-V9YLg-LByP_0oQ2ThRgQ!2m2!1d35.8102071!2d137.2398723!3f235.2!4f8!5f0.9",
+      "congestionPlaceIds": [
+        "d415ec0b-b5a5-4f31-8ec2-b5bf29b75f29",
+        "4af452f5-76ad-4a0c-b115-87a930a436b0"
+      ],
+      "notes": [
+        "木曜定休（祝日と重なる場合の扱いは公式に記載なし。祝日は営業とみなしています）"
+      ],
+      "i18n": {
+        "en": {
+          "name": "Kurgarten Open-Air Bath",
+          "notes": [
+            "Closed on Thursdays (when a holiday falls on a Thursday is not stated officially; this app assumes it is open)"
+          ]
+        }
+      }
+    }
+  ]
+}

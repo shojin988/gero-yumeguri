@@ -1,0 +1,5 @@
+node_modules/
+test-results/
+playwright-report/
+# 設計書・計画書は手元だけに置き、公開しない
+docs/

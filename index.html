@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title data-i18n="app.title">湯めぐり手形プランナー</title>
+  <meta name="description" content="下呂温泉の湯めぐり手形で入れる施設の地図・時間・混雑と、回る順番の提案" data-i18n-content="app.description">
+  <meta name="theme-color" content="#7a4b2a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1 data-i18n="app.title">湯めぐり手形プランナー</h1>
+    <span id="offline-badge" class="badge" hidden data-i18n="header.offline">オフライン</span>
+    <button id="language-button" class="language-button" type="button" lang="en" data-i18n-other-language data-i18n="header.language" data-i18n-aria-label="header.languageLabel">English</button>
+    <button id="info-button" class="icon-button" type="button" aria-label="情報" data-i18n-aria-label="header.info">ⓘ</button>
+  </header>
+  <div id="notices" class="notices" aria-live="polite"></div>
+  <main>
+    <section id="tab-map" class="tab-panel" data-tab-panel="map" role="tabpanel" aria-label="地図" data-i18n-aria-label="tabs.map">
+      <div id="map" class="map"></div>
+      <div id="map-card" class="map-card" hidden></div>
+    </section>
+    <section id="tab-list" class="tab-panel" data-tab-panel="list" role="tabpanel" aria-label="一覧" data-i18n-aria-label="tabs.list" hidden>
+      <div class="list-controls">
+        <label><span data-i18n="list.sort">並び順</span>
+          <select id="list-sort">
+            <option value="distance" data-i18n="list.sortDistance">近い順</option>
+            <option value="name" data-i18n="list.sortName">名前</option>
+          </select>
+        </label>
+        <label class="inline"><input type="checkbox" id="list-open-only"> <span data-i18n="list.openOnly">今から入れる施設だけ</span></label>
+      </div>
+      <ul id="facility-list" class="facility-list"></ul>
+    </section>
+    <section id="tab-plan" class="tab-panel" data-tab-panel="plan" role="tabpanel" aria-label="プラン" data-i18n-aria-label="tabs.plan" hidden>
+      <form id="plan-form" class="plan-form" novalidate>
+        <label><span data-i18n="plan.date">日付</span> <input type="date" name="date" required></label>
+        <label class="inline"><input type="checkbox" name="holiday"> <span data-i18n="plan.holiday">祝日として扱う</span></label>
+        <p id="plan-holiday-note" class="hint"></p>
+        <div class="row">
+          <label><span data-i18n="plan.start">開始</span> <input type="time" name="start" step="300" required></label>
+          <label><span data-i18n="plan.end">終了</span> <input type="time" name="end" step="300" required></label>
+        </div>
+        <div class="row">
+          <label><span data-i18n="plan.origin">出発地</span>
+            <select name="origin">
+              <option value="here" data-i18n="plan.originHere">現在地</option>
+              <option value="station" data-i18n="plan.station">下呂駅</option>
+            </select>
+          </label>
+          <label><span data-i18n="plan.goal">最後に戻る場所</span>
+            <select name="goal">
+              <option value="station" data-i18n="plan.station">下呂駅</option>
+              <option value="none" data-i18n="plan.goalNone">なし</option>
+            </select>
+          </label>
+        </div>
+        <div class="row">
+          <label><span data-i18n="plan.count">回る数</span>
+            <select name="count">
+              <option value="1" data-i18n="plan.count1">1か所</option>
+              <option value="2" data-i18n="plan.count2">2か所</option>
+              <option value="3" data-i18n="plan.count3">3か所</option>
+            </select>
+          </label>
+          <label><span data-i18n="plan.stay">1施設の滞在時間（分）</span>
+            <input type="number" name="stay" min="10" max="180" step="5" inputmode="numeric" required>
+          </label>
+        </div>
+        <button type="submit" class="primary" data-i18n="plan.submit">プランを作る</button>
+      </form>
+      <div id="plan-results" class="plan-results" aria-live="polite"></div>
+    </section>
+  </main>
+  <nav class="tab-bar" role="tablist" aria-label="画面の切り替え" data-i18n-aria-label="tabs.label">
+    <button type="button" role="tab" data-tab="map" aria-controls="tab-map" aria-selected="true" data-i18n="tabs.map">地図</button>
+    <button type="button" role="tab" data-tab="list" aria-controls="tab-list" aria-selected="false" data-i18n="tabs.list">一覧</button>
+    <button type="button" role="tab" data-tab="plan" aria-controls="tab-plan" aria-selected="false" data-i18n="tabs.plan">プラン</button>
+  </nav>
+  <dialog id="info-dialog" aria-labelledby="info-title">
+    <h2 id="info-title" data-i18n="info.title">このアプリについて</h2>
+    <p><span data-i18n="info.checkedOn">データ確認日：</span><span id="info-checked-on"></span></p>
+    <p id="info-stale" class="notice" hidden data-i18n="info.stale">データが古い可能性があります。公式ページで確認してください。</p>
+    <p data-i18n="info.changes">入浴時間は変わることがあります。臨時休業や入浴制限は公式のお知らせで確認してください。</p>
+    <ul>
+      <li><a href="https://www.gero-spa.or.jp/yu_meguri/" target="_blank" rel="noopener" data-i18n="info.passPage">公式の湯めぐり手形ページ</a></li>
+      <li><a href="https://vista.kohnan.kitchen/#/gero_top" target="_blank" rel="noopener" data-i18n="info.congestionPage">公式の手形入浴 混雑状況</a></li>
+      <li><a href="https://www.gero-spa.or.jp/blog/" target="_blank" rel="noopener" data-i18n="info.news">公式のお知らせ（ほっとニュース）</a></li>
+    </ul>
+    <p class="hint" data-i18n="info.hint">徒歩時間は直線距離から計算した目安です。地図 © OpenStreetMap contributors</p>
+    <form method="dialog"><button class="primary" data-i18n="info.close">閉じる</button></form>
+  </dialog>
+  <dialog id="exterior-dialog" class="exterior-dialog" aria-labelledby="exterior-title">
+    <h2 id="exterior-title"></h2>
+    <div id="exterior-body"></div>
+    <form method="dialog"><button class="primary" data-i18n="info.close">閉じる</button></form>
+  </dialog>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
