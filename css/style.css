@@ -9,6 +9,7 @@
   --open: #2e7d32;
   --later: #f9a825;
   --closed: #9e9e9e;
+  --paused: #c62828;
   --error: #b3261e;
   --header-height: 48px;
   --tabbar-height: 56px;
@@ -57,6 +58,8 @@ main { position: relative; flex: 1; min-height: 0; }
 .status-chip.status-open { background: var(--open); }
 .status-chip.status-later { background: var(--later); color: var(--text); }
 .status-chip.status-closed { background: var(--closed); }
+.status-chip.status-paused { background: var(--paused); }
+.card-follows-live { margin: 0 0 4px; color: var(--muted); font-size: .8rem; }
 
 .button, button.primary, button.secondary {
   display: inline-flex; align-items: center; justify-content: center;

@@ -40,3 +40,17 @@ test('hides congestion when it cannot be read', async ({ page }) => {
   await expect(page.locator('.facility-card')).toHaveCount(FACILITIES.length);
   await expect(page.locator('.card-live')).toHaveCount(0);
 });
+
+test('follows the official status when it differs from the timetable', async ({ page }) => {
+  await openList(page, { congestion: congestionFor([['kisoya', ['空き', '空き']]]) });
+  const card = page.locator('.facility-card[data-facility-id="kisoya"]');
+  await expect(card.locator('.status-chip')).toHaveText('今から入れる');
+  await expect(card.locator('.card-follows-live')).toHaveText('時刻表と異なりますが、公式の混雑状況に合わせています');
+  await page.getByLabel('今から入れる施設だけ').check();
+  await expect(card).toHaveCount(1);
+});
+
+test('shows facilities that refuse guests as not accepting now', async ({ page }) => {
+  await openList(page, { congestion: congestionFor([['kurgarten', ['入浴不可', '大変混雑']]]) });
+  await expect(page.locator('.facility-card[data-facility-id="kurgarten"] .status-chip')).toHaveText('今は入れない');
+});

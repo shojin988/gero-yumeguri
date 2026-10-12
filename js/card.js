@@ -28,6 +28,7 @@ export function renderFacilityCard(item, { originLabel, liveAt = null, exterior 
     exterior === 'inline' ? el('div', { className: 'card-exterior' }, renderExterior(facility, { isOnline: navigator.onLine })) : null,
     el('p', { className: 'card-hours', text: t('card.hours', { hours: formatWindows(windows) }) }),
     renderLive(item.live, liveAt),
+    item.followsLive && liveAt !== null ? el('p', { className: 'card-follows-live', text: t('card.followsLive') }) : null,
     el('p', { className: 'card-walk', text: formatWalk(walk, originLabel) }),
     notes.length > 0
       ? el('ul', { className: 'card-notes' }, notes.map((note) => el('li', { text: note })))

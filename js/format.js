@@ -1,7 +1,7 @@
 import { formatHm } from './hours.js';
 import { t } from './i18n.js';
 
-const STATUSES = new Set(['open', 'later', 'closed']);
+const STATUSES = new Set(['open', 'later', 'closed', 'paused']);
 const KNOWN_LIVE_LEVELS = new Set(['vacant', 'busy', 'crowded', 'full', 'unavailable', 'closed']);
 
 export function statusLabel(status) {

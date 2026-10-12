@@ -2,7 +2,7 @@ import { el } from './dom.js';
 import { renderFacilityCard } from './card.js';
 import { facilityName, t } from './i18n.js';
 
-const STATUS_COLORS = { open: '#2e7d32', later: '#f9a825', closed: '#9e9e9e' };
+const STATUS_COLORS = { open: '#2e7d32', later: '#f9a825', closed: '#9e9e9e', paused: '#c62828' };
 const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const MAX_ZOOM = 19;

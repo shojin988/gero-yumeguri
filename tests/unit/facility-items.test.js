@@ -74,17 +74,54 @@ test('buildFacilityItems attaches the live congestion of each facility', () => {
   assert.equal(withoutData[0].live, null);
 });
 
-test('filterItems also drops open facilities that refuse guests right now', () => {
-  const items = [
-    { facility: { name: 'か' }, walk: 1, status: 'open', live: [{ level: 'unavailable' }, { level: 'full' }] },
-    { facility: { name: 'き' }, walk: 1, status: 'open', live: [{ level: 'crowded' }] },
-    { facility: { name: 'く' }, walk: 1, status: 'open', live: null },
-  ];
-  assert.deepEqual(names(filterItems(items, { openOnly: true })), ['き', 'く']);
-  assert.equal(filterItems(items, { openOnly: false }).length, 3);
+// 公式の混雑状況を正とする。時刻表で入れない日でも、公式が「空き」なら入れる。
+function itemWith(levels, { windows = [['09:00', '21:00']], days } = {}) {
+  const ids = levels.map((_, index) => `id${index}`);
+  const facility = { ...makeFacility('f', { windows, ...(days ? { days } : {}) }), congestionPlaceIds: ids };
+  const places = new Map(levels.map((level, index) => [ids[index], { bath: index === 0 ? 'male' : 'female', level, label: level }]));
+  return buildFacilityItems({ facilities: [facility], day: MONDAY, now: 600, origin: STATION, stay: 30, congestion: places })[0];
+}
+
+test('the official status opens a facility the timetable says is closed today', () => {
+  const item = itemWith(['vacant', 'vacant'], { days: ['sat', 'sun', 'hol'] });
+  assert.equal(item.scheduleStatus, 'closed');
+  assert.equal(item.status, 'open');
+  assert.equal(item.followsLive, true);
 });
 
-test('filterItems keeps a facility when only some of its baths are known to refuse guests', () => {
-  const items = [{ facility: { name: 'け', congestionPlaceIds: ['m', 'f'] }, walk: 1, status: 'open', live: [{ level: 'unavailable' }] }];
-  assert.equal(filterItems(items, { openOnly: true }).length, 1);
+test('any bath taking guests makes the facility open now', () => {
+  assert.equal(itemWith(['crowded', 'unavailable'], { windows: [['18:00', '20:00']] }).status, 'open');
+});
+
+test('every bath refusing guests pauses the facility', () => {
+  const item = itemWith(['unavailable', 'full']);
+  assert.equal(item.status, 'paused');
+  assert.equal(item.followsLive, true);
+});
+
+test('outside pass hours in the official status closes a facility the timetable says is open', () => {
+  assert.equal(itemWith(['closed', 'closed']).status, 'closed');
+  assert.equal(itemWith(['closed', 'closed'], { windows: [['09:00', '10:30'], ['18:00', '20:00']] }).status, 'later');
+});
+
+test('partial or unknown official data leaves the timetable status', () => {
+  const half = buildFacilityItems({
+    facilities: [{ ...makeFacility('g'), congestionPlaceIds: ['a', 'b'] }],
+    day: MONDAY,
+    now: 600,
+    origin: STATION,
+    stay: 30,
+    congestion: new Map([['a', { bath: 'male', level: 'unavailable', label: '入浴不可' }]]),
+  })[0];
+  assert.equal(half.status, 'open');
+  assert.equal(half.followsLive, false);
+  assert.equal(itemWith(['unknown', 'unknown']).status, 'open');
+});
+
+test('filterItems keeps only facilities that are open now', () => {
+  const items = [
+    { facility: { name: 'か' }, walk: 1, status: 'paused' },
+    { facility: { name: 'き' }, walk: 1, status: 'open' },
+  ];
+  assert.deepEqual(names(filterItems(items, { openOnly: true })), ['き']);
 });
