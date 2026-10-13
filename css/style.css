@@ -128,3 +128,13 @@ dialog::backdrop { background: #00000066; }
 .live-closed, .live-unknown { background: #eeeeee; color: #555555; border-color: #d6d6d6; }
 .language-select { min-height: 44px; max-width: 8.5em; padding: 4px 8px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 999px; background: none; color: inherit; font-size: .85rem; }
 .language-select option { color: var(--text); background: #ffffff; }
+.map-legend { margin: 0 0 8px 8px; padding: 6px 10px; background: var(--surface); border-radius: 8px; box-shadow: 0 1px 6px #00000033; font-size: .75rem; line-height: 1.5; }
+.map-legend .legend-title { margin: 0 0 2px; font-weight: bold; }
+.map-legend ul { margin: 0; padding: 0; list-style: none; }
+.legend-dot { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 50%; vertical-align: middle; }
+.legend-dot.status-open { background: var(--open); }
+.legend-dot.status-later { background: var(--later); }
+.legend-dot.status-closed { background: var(--closed); }
+.legend-dot.status-paused { background: var(--paused); }
+.map:not(.show-labels) .pin-label { display: none; }
+.pin-label { padding: 1px 6px; font-size: .75rem; }

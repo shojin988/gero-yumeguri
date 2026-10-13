@@ -1,11 +1,25 @@
 import { el } from './dom.js';
 import { renderFacilityCard } from './card.js';
+import { statusLabel } from './format.js';
 import { facilityName, t } from './i18n.js';
 
 const STATUS_COLORS = { open: '#2e7d32', later: '#f9a825', closed: '#9e9e9e', paused: '#c62828' };
 const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const MAX_ZOOM = 19;
+// これより拡大したときだけ施設名を出す（全体表示では名前が重なって読めないため）
+const LABEL_MIN_ZOOM = 17;
+const LEGEND_STATUSES = ['open', 'later', 'closed', 'paused'];
+
+function renderLegend() {
+  return el('div', { className: 'map-legend' }, [
+    el('p', { className: 'legend-title', text: t('map.legend') }),
+    el('ul', {}, LEGEND_STATUSES.map((status) => el('li', {}, [
+      el('span', { className: `legend-dot status-${status}`, 'aria-hidden': 'true' }),
+      statusLabel(status),
+    ]))),
+  ]);
+}
 
 export function createMapView({ mapElement, cardElement }) {
   const L = globalThis.L;
@@ -14,6 +28,11 @@ export function createMapView({ mapElement, cardElement }) {
   const pinLayer = L.layerGroup().addTo(map);
   const routeLayer = L.layerGroup().addTo(map);
   let hasFitted = false;
+
+  const legend = L.control({ position: 'bottomleft' });
+  legend.onAdd = renderLegend;
+  legend.addTo(map);
+  map.on('zoomend', () => mapElement.classList.toggle('show-labels', map.getZoom() >= LABEL_MIN_ZOOM));
 
   function hideCard() {
     cardElement.hidden = true;
@@ -33,7 +52,7 @@ export function createMapView({ mapElement, cardElement }) {
       radius: 11, color: '#ffffff', weight: 2, fillColor: STATUS_COLORS[item.status], fillOpacity: 1,
       className: `pin pin-${item.status} pin-id-${item.facility.id}`,
     })
-      .bindTooltip(el('span', { text: facilityName(item.facility) }), { direction: 'top' })
+      .bindTooltip(el('span', { text: facilityName(item.facility) }), { direction: 'top', permanent: true, className: 'pin-label', offset: [0, -10] })
       .on('click', () => showCard(item, cardOptions))
       .addTo(pinLayer);
   }

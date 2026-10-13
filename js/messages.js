@@ -12,6 +12,7 @@ const ja = {
   'tabs.map': '地図',
   'tabs.list': '一覧',
   'tabs.plan': 'プラン',
+  'map.legend': '凡例',
 
   'origin.here': '現在地',
   'notice.far': '現在地が下呂から離れているため、下呂駅を基準に表示しています。',
@@ -118,6 +119,7 @@ const en = {
   'tabs.map': 'Map',
   'tabs.list': 'List',
   'tabs.plan': 'Plan',
+  'map.legend': 'Legend',
 
   'origin.here': 'your location',
   'notice.far': 'You are far from Gero, so distances are shown from Gero Station.',
@@ -224,6 +226,7 @@ const zhHant = {
   'tabs.map': '地圖',
   'tabs.list': '列表',
   'tabs.plan': '行程',
+  'map.legend': '圖例',
 
   'origin.here': '目前位置',
   'notice.far': '您目前離下呂較遠，因此改從下呂站計算距離。',
@@ -330,6 +333,7 @@ const zhHans = {
   'tabs.map': '地图',
   'tabs.list': '列表',
   'tabs.plan': '行程',
+  'map.legend': '图例',
 
   'origin.here': '当前位置',
   'notice.far': '您当前离下吕较远，因此改从下吕站计算距离。',
@@ -436,6 +440,7 @@ const ko = {
   'tabs.map': '지도',
   'tabs.list': '목록',
   'tabs.plan': '플랜',
+  'map.legend': '범례',
 
   'origin.here': '현재 위치',
   'notice.far': '현재 위치가 게로에서 멀어 게로역을 기준으로 표시합니다.',
