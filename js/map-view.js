@@ -1,7 +1,8 @@
 import { el } from './dom.js';
 import { renderFacilityCard } from './card.js';
 import { statusLabel } from './format.js';
-import { facilityName, t } from './i18n.js';
+import { facilityName, shopName, t } from './i18n.js';
+import { renderShopCard } from './shop-card.js';
 
 const STATUS_COLORS = { open: '#2e7d32', later: '#f9a825', closed: '#9e9e9e', paused: '#c62828' };
 const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -10,6 +11,9 @@ const MAX_ZOOM = 19;
 // これより拡大したときだけ施設名を出す（全体表示では名前が重なって読めないため）
 const LABEL_MIN_ZOOM = 17;
 const LEGEND_STATUSES = ['open', 'later', 'closed', 'paused'];
+const SHOP_ICON_SIZE = 24;
+// 店ピンの中身はナイフとフォークの固定の印だけ（データは入れない）
+const SHOP_ICON_HTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M7 2v8a2 2 0 0 0 1.5 1.94V22h2V11.94A2 2 0 0 0 12 10V2h-1.5v6h-1V2h-1v6h-1V2H7zm9.5 0C14.6 2 13.5 4.2 13.5 7v6h2v9h2V2h-1z"/></svg>';
 
 function renderLegend() {
   return el('div', { className: 'map-legend' }, [
@@ -18,6 +22,10 @@ function renderLegend() {
       el('span', { className: `legend-dot status-${status}`, 'aria-hidden': 'true' }),
       statusLabel(status),
     ]))),
+    el('ul', { className: 'legend-shops', hidden: true }, [
+      el('li', {}, [el('span', { className: 'legend-square shop-open', 'aria-hidden': 'true' }), t('legend.shop')]),
+      el('li', {}, [el('span', { className: 'legend-square shop-unknown', 'aria-hidden': 'true' }), t('legend.shopUnknown')]),
+    ]),
   ]);
 }
 
@@ -29,8 +37,9 @@ export function createMapView({ mapElement, cardElement }) {
   const routeLayer = L.layerGroup().addTo(map);
   let hasFitted = false;
 
+  const legendElement = renderLegend();
   const legend = L.control({ position: 'bottomleft' });
-  legend.onAdd = renderLegend;
+  legend.onAdd = () => legendElement;
   legend.addTo(map);
   map.on('zoomend', () => mapElement.classList.toggle('show-labels', map.getZoom() >= LABEL_MIN_ZOOM));
 
@@ -40,34 +49,57 @@ export function createMapView({ mapElement, cardElement }) {
   }
 
   function showCard(item, { originLabel, liveAt }) {
+    const card = item.shop
+      ? renderShopCard(item, { originLabel })
+      : renderFacilityCard(item, { originLabel, liveAt, exterior: 'inline' });
     cardElement.replaceChildren(
       el('button', { type: 'button', className: 'card-close', 'aria-label': t('card.close'), text: '×', onClick: hideCard }),
-      renderFacilityCard(item, { originLabel, liveAt, exterior: 'inline' }),
+      card,
     );
     cardElement.hidden = false;
   }
 
+  function addLabel(marker, name) {
+    return marker.bindTooltip(el('span', { text: name }), { direction: 'top', permanent: true, className: 'pin-label', offset: [0, -10] });
+  }
+
   function addPin(item, cardOptions) {
-    L.circleMarker([item.facility.lat, item.facility.lng], {
+    const marker = L.circleMarker([item.facility.lat, item.facility.lng], {
       radius: 11, color: '#ffffff', weight: 2, fillColor: STATUS_COLORS[item.status], fillOpacity: 1,
       className: `pin pin-${item.status} pin-id-${item.facility.id}`,
-    })
-      .bindTooltip(el('span', { text: facilityName(item.facility) }), { direction: 'top', permanent: true, className: 'pin-label', offset: [0, -10] })
+    });
+    addLabel(marker, facilityName(item.facility))
       .on('click', () => showCard(item, cardOptions))
       .addTo(pinLayer);
   }
 
-  function render({ items, origin, originLabel, liveAt = null, showOriginDot }) {
+  function addShopPin(item, cardOptions) {
+    const marker = L.marker([item.shop.lat, item.shop.lng], {
+      icon: L.divIcon({
+        className: `shop-pin shop-${item.status} shop-id-${item.shop.id}`,
+        html: SHOP_ICON_HTML,
+        iconSize: [SHOP_ICON_SIZE, SHOP_ICON_SIZE],
+      }),
+    });
+    addLabel(marker, shopName(item.shop))
+      .on('click', () => showCard(item, cardOptions))
+      .addTo(pinLayer);
+  }
+
+  function render({ items, origin, originLabel, liveAt = null, showOriginDot, showShopLegend = false }) {
     pinLayer.clearLayers();
-    items.forEach((item) => addPin(item, { originLabel, liveAt }));
+    items.forEach((item) => (item.shop ? addShopPin : addPin)(item, { originLabel, liveAt }));
+    legendElement.querySelector('.legend-shops').hidden = !showShopLegend;
     if (showOriginDot) {
       L.circleMarker([origin.lat, origin.lng], {
         radius: 8, color: '#ffffff', weight: 3, fillColor: '#1565c0', fillOpacity: 1, className: 'me',
       }).addTo(pinLayer);
     }
-    if (!hasFitted && items.length > 0) {
-      const walkableItems = items.filter((item) => item.walk !== null);
-      const fitItems = walkableItems.length > 0 ? walkableItems : items;
+    // 最初の表示範囲は今までどおり温泉だけで決める
+    const onsenItems = items.filter((item) => !item.shop);
+    if (!hasFitted && onsenItems.length > 0) {
+      const walkableItems = onsenItems.filter((item) => item.walk !== null);
+      const fitItems = walkableItems.length > 0 ? walkableItems : onsenItems;
       map.fitBounds(L.latLngBounds(fitItems.map((item) => [item.facility.lat, item.facility.lng])), { padding: [24, 24] });
       hasFitted = true;
     }

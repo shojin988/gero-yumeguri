@@ -14,6 +14,9 @@ const ja = {
   'tabs.plan': 'プラン',
   'map.legend': '凡例',
 
+  'legend.shop': '四角＝飲食店',
+  'legend.shopUnknown': '白＝営業時間は店に確認',
+
   'origin.here': '現在地',
   'notice.far': '現在地が下呂から離れているため、下呂駅を基準に表示しています。',
   'notice.noPosition': '現在地が取れないため、下呂駅を基準に表示しています。',
@@ -156,6 +159,9 @@ const en = {
   'tabs.list': 'List',
   'tabs.plan': 'Plan',
   'map.legend': 'Legend',
+
+  'legend.shop': 'Square = restaurant',
+  'legend.shopUnknown': 'White = hours unconfirmed',
 
   'origin.here': 'your location',
   'notice.far': 'You are far from Gero, so distances are shown from Gero Station.',
@@ -300,6 +306,9 @@ const zhHant = {
   'tabs.plan': '行程',
   'map.legend': '圖例',
 
+  'legend.shop': '方形＝餐廳',
+  'legend.shopUnknown': '白色＝營業時間請向店家確認',
+
   'origin.here': '目前位置',
   'notice.far': '您目前離下呂較遠，因此改從下呂站計算距離。',
   'notice.noPosition': '無法取得目前位置，因此改從下呂站計算距離。',
@@ -443,6 +452,9 @@ const zhHans = {
   'tabs.plan': '行程',
   'map.legend': '图例',
 
+  'legend.shop': '方形＝餐厅',
+  'legend.shopUnknown': '白色＝营业时间请向店家确认',
+
   'origin.here': '当前位置',
   'notice.far': '您当前离下吕较远，因此改从下吕站计算距离。',
   'notice.noPosition': '无法获取当前位置，因此改从下吕站计算距离。',
@@ -585,6 +597,9 @@ const ko = {
   'tabs.list': '목록',
   'tabs.plan': '플랜',
   'map.legend': '범례',
+
+  'legend.shop': '사각형 = 음식점',
+  'legend.shopUnknown': '흰색 = 영업시간은 가게에 확인',
 
   'origin.here': '현재 위치',
   'notice.far': '현재 위치가 게로에서 멀어 게로역을 기준으로 표시합니다.',

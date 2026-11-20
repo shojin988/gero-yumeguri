@@ -138,11 +138,12 @@ function renderAll() {
   const visible = filterByCategory([...onsenItems, ...shopItems], state.visibleCategories);
   const liveAt = state.congestion?.fetchedAt ?? null;
   mapView.render({
-    items: visible.filter((item) => item.category === 'onsen'),
+    items: visible,
     origin: context.origin.point,
     originLabel: context.originLabel,
     liveAt,
     showOriginDot: !context.origin.isFallback,
+    showShopLegend: state.visibleCategories.includes('food'),
   });
   listView.render(visible, { originLabel: context.originLabel, liveAt, noCategory: state.visibleCategories.length === 0 });
   renderNotices(context);

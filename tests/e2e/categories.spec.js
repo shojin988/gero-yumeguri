@@ -84,3 +84,44 @@ test('shows English cuisine and translated shop name', async ({ page }) => {
   const card = page.locator('#facility-list .shop-card').filter({ has: page.getByRole('heading', { name: 'Test Soba' }) });
   await expect(card.locator('.card-cuisine')).toHaveText('Soba');
 });
+
+test('toggles restaurant pins on the map', async ({ page }) => {
+  await openApp(page);
+  await expect(page.locator('.shop-pin')).toHaveCount(0);
+  await expect(page.locator('.legend-shops')).toBeHidden();
+  await foodButton(page).click();
+  await expect(page.locator('.shop-pin')).toHaveCount(3);
+  await expect(page.locator('.shop-pin.shop-open')).toHaveCount(1);
+  await expect(page.locator('.shop-pin.shop-closed')).toHaveCount(1);
+  await expect(page.locator('.shop-pin.shop-unknown')).toHaveCount(1);
+  await expect(page.locator('.legend-shops')).toBeVisible();
+  await expect(page.locator('.legend-shops li')).toHaveText(['四角＝飲食店', '白＝営業時間は店に確認']);
+  await expect(page.locator('.pin')).toHaveCount(FACILITIES.length);
+  await foodButton(page).click();
+  await expect(page.locator('.shop-pin')).toHaveCount(0);
+  await expect(page.locator('.legend-shops')).toBeHidden();
+});
+
+test('opens a light card for a restaurant pin', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  await page.locator('.shop-id-osm-node-1').click();
+  const card = page.locator('#map-card');
+  await expect(card.getByRole('heading', { name: 'テストそば' })).toBeVisible();
+  await expect(card.locator('.card-cuisine')).toHaveText('そば');
+  await expect(card.getByRole('link', { name: 'Googleマップで開く' })).toBeVisible();
+  await expect(card.locator('.card-exterior')).toHaveCount(0);
+});
+
+test('keeps the plan route when shops are toggled', async ({ page }) => {
+  await openApp(page);
+  await page.getByRole('tab', { name: 'プラン' }).click();
+  await page.locator('input[name=end]').fill('21:00');
+  await page.getByRole('button', { name: 'プランを作る' }).click();
+  await page.getByRole('button', { name: '地図で見る' }).first().click();
+  await expect(page.locator('.route-number')).toHaveCount(3);
+  await foodButton(page).click();
+  await expect(page.locator('.shop-pin')).toHaveCount(3);
+  await expect(page.locator('.route-line')).toHaveCount(1);
+  await expect(page.locator('.route-number')).toHaveCount(3);
+});

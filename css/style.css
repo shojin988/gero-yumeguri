@@ -152,3 +152,17 @@ dialog::backdrop { background: #00000066; }
 .status-chip.status-unknown { background: var(--surface); color: var(--muted); border: 1px solid var(--closed); }
 .card-cuisine { color: var(--muted); }
 .card-irregular { color: var(--muted); font-size: .8rem; }
+
+/* 飲食店のピン（角丸の四角。色は温泉と同じ状態色、営業時間不明は白） */
+.shop-pin {
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #ffffff; border-radius: 6px; box-shadow: 0 1px 4px #00000055; color: #ffffff;
+}
+.shop-pin.shop-open { background: var(--open); }
+.shop-pin.shop-later { background: var(--later); color: var(--text); }
+.shop-pin.shop-closed { background: var(--closed); }
+.shop-pin.shop-unknown { background: #ffffff; border-color: var(--closed); color: var(--muted); }
+.legend-square { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 2px; vertical-align: middle; }
+.legend-square.shop-open { background: var(--open); }
+.legend-square.shop-unknown { background: #ffffff; border: 1px solid var(--closed); }
+.map-legend .legend-shops[hidden] { display: none; }

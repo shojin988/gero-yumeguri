@@ -5,7 +5,7 @@ test('explains the pin colours in a legend', async ({ page }) => {
   await openApp(page);
   const legend = page.locator('.map-legend');
   await expect(legend.locator('.legend-title')).toHaveText('凡例');
-  await expect(legend.locator('li')).toHaveText(['今から入れる', '今日このあと入れる', '今日は入れない', '今は入れない']);
+  await expect(legend.locator('ul:not(.legend-shops) li')).toHaveText(['今から入れる', '今日このあと入れる', '今日は入れない', '今は入れない']);
   await expect(legend.locator('li .legend-dot.status-open')).toHaveCount(1);
 });
 
