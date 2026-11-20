@@ -11,7 +11,9 @@ const MAX_ZOOM = 19;
 // これより拡大したときだけ施設名を出す（全体表示では名前が重なって読めないため）
 const LABEL_MIN_ZOOM = 17;
 const LEGEND_STATUSES = ['open', 'later', 'closed', 'paused'];
-const SHOP_ICON_SIZE = 24;
+const SHOP_ICON_SIZE = 22;
+const SHOP_PANE = 'shops';
+const SHOP_PANE_Z_INDEX = '350';
 // 店ピンの中身はナイフとフォークの固定の印だけ（データは入れない）
 const SHOP_ICON_HTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M7 2v8a2 2 0 0 0 1.5 1.94V22h2V11.94A2 2 0 0 0 12 10V2h-1.5v6h-1V2h-1v6h-1V2H7zm9.5 0C14.6 2 13.5 4.2 13.5 7v6h2v9h2V2h-1z"/></svg>';
 
@@ -33,6 +35,8 @@ export function createMapView({ mapElement, cardElement }) {
   const L = globalThis.L;
   const map = L.map(mapElement);
   L.tileLayer(TILE_URL, { maxZoom: MAX_ZOOM, attribution: ATTRIBUTION }).addTo(map);
+  // 温泉のピン（overlay pane、z-index 400）が店のピンに隠れないよう、店は下の層に描く
+  map.createPane(SHOP_PANE).style.zIndex = SHOP_PANE_Z_INDEX;
   const pinLayer = L.layerGroup().addTo(map);
   const routeLayer = L.layerGroup().addTo(map);
   let hasFitted = false;
@@ -80,6 +84,7 @@ export function createMapView({ mapElement, cardElement }) {
         html: SHOP_ICON_HTML,
         iconSize: [SHOP_ICON_SIZE, SHOP_ICON_SIZE],
       }),
+      pane: SHOP_PANE,
     });
     addLabel(marker, shopName(item.shop))
       .on('click', () => showCard(item, cardOptions))

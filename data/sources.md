@@ -81,11 +81,63 @@
 
 ## 飲食店（data/shops.json）
 
-- 候補は OpenStreetMap（Overpass API、`tools/import-osm.js`）から取り、下呂温泉観光協会（https://www.gero-spa.or.jp/ ）の飲食店の情報と1軒ずつ見比べて、閉店した店を外し、抜けている店を足した。
+- 候補は OpenStreetMap（Overpass API、`tools/import-osm.js`、2026-11-20 時点で範囲内 9 件）から取った。
+- 照合元は「下呂温泉ぐるめ案内 げろぐる」（下呂商工会、https://www.gerogle.jp/gourmet/ ）。下呂温泉観光協会の公式サイト（https://www.gero-spa.com/ ）のグルメ案内がこのサイトにつながっており、観光協会のサイト（gero-spa.or.jp）自体には飲食店の一覧がない。範囲内に載っていた店を1軒ずつ確かめ、OpenStreetMap と同じ店は OSM の id でまとめた。
+- 範囲は、歩いて行ける温泉すべてを囲む四角に 200 m の余白を足したもの（南 35.80334・西 137.23160・北 35.81376・東 137.24710）。
 - 写したのは事実（店名・料理の種類・営業時間・定休日・不定休の有無）だけ。紹介文や写真は使っていない。
-- 営業時間は観光協会のページか店の公式情報で確かめたものだけを入れ、確かめたページを `hoursSource` に記録した。確かめられない店は `schedule` と `hoursSource` を null にしている（画面では「営業時間は店にご確認ください」）。
-- OpenStreetMap にない店（id が `local-` で始まる店）の位置は、Google マップの店のピンと国土地理院の住所検索の2つで確かめた。
+- 営業時間は げろぐる の各店ページの記載を写し、そのページを `hoursSource` に記録した。営業日が読み取れない店は `schedule` と `hoursSource` を null にしている（画面では「営業時間は店にご確認ください」）。
+- 写し方の決まり
+  - 「(L.O)」「最終入店」はラストオーダー（`lastEntry`）として扱う。時刻の後ろに「(L.O)」だけが付く場合は、その時刻をラストオーダーとする。
+  - 「ほか不定休」「臨時休業あり」「連休あり」「祝日は別日休」などがある店は `irregularClosure: true`（画面に「不定休あり・店にご確認ください」）。
+  - 祝日は、定休日の記載に祝日の扱いがない店も営業日として扱う（`hol` を含める）。
+  - コース予約のみの時間帯や「予約があれば延長」は入れない。
+- 位置は げろぐる の各店ページの地図のピンを使い、国土地理院の住所検索（番地の代表点）と照らし合わせて 200 m 以内であることを確かめた。OpenStreetMap と同じ店（4軒）は OSM の位置を使い、げろぐる のピンと比べた（うな昇 6 m、山びこ 9 m、LA VITA e bella 3 m、湯島庵 65 m）。湯島庵は 50 m 以上ずれていたため げろぐる のピンに直した。
+- 今回載せなかった店（位置か営業を確かめきれなかったため）
+  - げろぐる にあるが、ピンと国土地理院の番地の位置が 200 m 以上離れていた店：ダーツバー BORO（381 m）、Resort Restaurant + Tapas Bar 桜（234 m）、焼肉ハウス 和光（405 m）
+  - げろぐる にあるが、住所が町名までで国土地理院で照合できなかった店：マルコ
+  - OpenStreetMap にだけあり、営業を確かめられなかった店：このみラーメン、飛騨屋、串けいちゃん屋
+  - お肉屋さんの下呂カリーパン（OSM）は食べ歩きの店のため、後で足す「食べ歩き」の種類で扱う
 - `data/shops.json` は OpenStreetMap のデータをもとにしているため、Open Database License（ODbL）で提供する。© OpenStreetMap contributors
 
-| id | 店名 | OSM | 営業時間の確認元 | 確認日 |
-|---|---|---|---|---|
+| id | 店名 | OSM | 営業時間の確認元 | 確認日 | 位置・備考 |
+|---|---|---|---|---|---|
+| local-gerogle-2 | 食事処 しずなみ | - | https://www.gerogle.jp/gourmet/detail_2.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 40 m） |
+| local-gerogle-3 | 中華酒房 桃庵 | - | https://www.gerogle.jp/gourmet/detail_3.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 20 m） |
+| local-gerogle-4 | お食事処 樽や | - | https://www.gerogle.jp/gourmet/detail_4.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 21 m） |
+| local-gerogle-5 | ごはんや くりざんていむ | - | https://www.gerogle.jp/gourmet/detail_5.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 8 m） |
+| local-gerogle-6 | 更科 | - | https://www.gerogle.jp/gourmet/detail_6.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 55 m） |
+| local-gerogle-7 | 廣司 | - | https://www.gerogle.jp/gourmet/detail_7.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 88 m） |
+| local-gerogle-8 | 寿司 うお藤 | - | https://www.gerogle.jp/gourmet/detail_8.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 164 m） |
+| local-gerogle-9 | 食彩房 翔 | - | https://www.gerogle.jp/gourmet/detail_9.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 64 m） |
+| local-gerogle-10 | 居酒屋 金扇 | - | https://www.gerogle.jp/gourmet/detail_10.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 17 m） |
+| local-gerogle-11 | せん田゛ | - | https://www.gerogle.jp/gourmet/detail_11.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 24 m） |
+| osm-node-7194617584 | 湯島庵 | [node/7194617584](https://www.openstreetmap.org/node/7194617584) | https://www.gerogle.jp/gourmet/detail_13.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 81 m）。OSM の位置は 65 m ずれていたため げろぐる のピンに直した |
+| local-gerogle-14 | ブラン・デュ・エトワール | - | https://www.gerogle.jp/gourmet/detail_14.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 67 m） |
+| local-gerogle-15 | 吉良寿司 | - | https://www.gerogle.jp/gourmet/detail_15.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 65 m） |
+| local-gerogle-17 | 飛騨牛レストカフェ 柊 | - | https://www.gerogle.jp/gourmet/detail_17.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 37 m） |
+| local-gerogle-18 | 飛騨牛・焼肉 ジュージュ | - | https://www.gerogle.jp/gourmet/detail_18.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 27 m） |
+| local-gerogle-19 | 柚庵 おきや | - | https://www.gerogle.jp/gourmet/detail_19.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 18 m） |
+| local-gerogle-20 | 小川屋 かなれ | - | https://www.gerogle.jp/gourmet/detail_20.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 136 m） |
+| local-gerogle-21 | 豆天狗 下呂温泉店 | - | https://www.gerogle.jp/gourmet/detail_21.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 170 m） |
+| local-gerogle-23 | ラムネ屋 | - | https://www.gerogle.jp/gourmet/detail_23.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 39 m） |
+| osm-node-14067321985 | 鰻処 うな昇 | [node/14067321985](https://www.openstreetmap.org/node/14067321985) | https://www.gerogle.jp/gourmet/detail_25.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 22 m） |
+| local-gerogle-26 | レストラン＆カフェ 富喜屋 | - | https://www.gerogle.jp/gourmet/detail_26.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 23 m） |
+| local-gerogle-27 | 松園 | - | https://www.gerogle.jp/gourmet/detail_27.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 44 m） |
+| local-gerogle-28 | 水明館 欧風レストラン バーデンバーデン | - | https://www.gerogle.jp/gourmet/detail_28.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 170 m） |
+| local-gerogle-29 | 水明館 料理茶屋 北乃寮 | - | https://www.gerogle.jp/gourmet/detail_29.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 50 m） |
+| local-gerogle-32 | 居酒屋さんとく | - | https://www.gerogle.jp/gourmet/detail_32.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 30 m） |
+| local-gerogle-35 | 仙味 むとう | - | https://www.gerogle.jp/gourmet/detail_35.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 41 m） |
+| osm-way-764323605 | 民芸食事処 山びこ | [way/764323605](https://www.openstreetmap.org/way/764323605) | https://www.gerogle.jp/gourmet/detail_36.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 46 m） |
+| local-gerogle-37 | 美酒人路 まるゆう | - | https://www.gerogle.jp/gourmet/detail_37.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 32 m） |
+| local-gerogle-38 | オムガネーシャ | - | https://www.gerogle.jp/gourmet/detail_38.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 160 m） |
+| local-gerogle-39 | 桔梗屋 | - | https://www.gerogle.jp/gourmet/detail_39.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 147 m） |
+| local-gerogle-41 | げろひつじ ジンギスカン | - | https://www.gerogle.jp/gourmet/detail_41.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 61 m） |
+| osm-node-13444741401 | LA VITA e bella | [node/13444741401](https://www.openstreetmap.org/node/13444741401) | https://www.gerogle.jp/gourmet/detail_43.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 80 m） |
+| local-gerogle-44 | 御食事処 法扇 | - | https://www.gerogle.jp/gourmet/detail_44.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 120 m） |
+| local-gerogle-47 | 割烹 美松 | - | https://www.gerogle.jp/gourmet/detail_47.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 80 m） |
+| local-gerogle-88 | お食事処 萩屋ケイちゃん | - | https://www.gerogle.jp/gourmet/detail_88.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 81 m） |
+| local-gerogle-98 | おしゃべり酒場 ABO | - | https://www.gerogle.jp/gourmet/detail_98.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 117 m） |
+| local-gerogle-103 | 麵屋しらかわ | - | 確認元なし（店に確認） | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 155 m） |
+| local-gerogle-104 | ぐんぱち 下呂温泉店 | - | 確認元なし（店に確認） | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 112 m） |
+| local-gerogle-106 | JAYA GURKHA | - | https://www.gerogle.jp/gourmet/detail_106.html | 2026-11-20 | 位置は げろぐる のピン（国土地理院の番地の位置と 37 m） |
+| osm-way-767172712 | ひさご | [way/767172712](https://www.openstreetmap.org/way/767172712) | 確認元なし（店に確認） | 2026-11-20 | OSM の位置。営業はまっぷる（mapple.net）の記事で確認、営業時間は売り切れ次第のため載せない |

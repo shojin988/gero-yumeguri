@@ -73,6 +73,9 @@ const ja = {
   'cuisine.chinese': '中華',
   'cuisine.curry': 'カレー',
   'cuisine.burger': 'ハンバーガー',
+
+  'cuisine.unagi': 'うなぎ',
+  'cuisine.keichan': '鶏ちゃん',
   'cuisine.other': 'その他の料理',
 
   'bath.male': '男湯',
@@ -142,7 +145,7 @@ const ja = {
   'info.news': '公式のお知らせ（ほっとニュース）',
   'info.hint': '徒歩時間は直線距離から計算した目安です。地図 © OpenStreetMap contributors',
 
-  'info.shops': '飲食店は OpenStreetMap と下呂温泉観光協会の情報をもとにしています。店のデータ（data/shops.json）は ODbL で提供します。© OpenStreetMap contributors',
+  'info.shops': '飲食店は OpenStreetMap と下呂商工会の「げろぐる」の情報をもとにしています。店のデータ（data/shops.json）は ODbL で提供します。© OpenStreetMap contributors',
   'info.shopsCheckedOn': '飲食店データ確認日：',
   'info.close': '閉じる',
 };
@@ -219,6 +222,9 @@ const en = {
   'cuisine.chinese': 'Chinese',
   'cuisine.curry': 'Curry',
   'cuisine.burger': 'Burgers',
+
+  'cuisine.unagi': 'Eel (unagi)',
+  'cuisine.keichan': 'Keichan (grilled chicken)',
   'cuisine.other': 'Other',
 
   'bath.male': 'Men',
@@ -288,7 +294,7 @@ const en = {
   'info.news': 'Official news (Japanese)',
   'info.hint': 'Walking times are estimates based on straight-line distance. Map © OpenStreetMap contributors',
 
-  'info.shops': 'Restaurants are based on OpenStreetMap and the Gero Onsen Tourism Association. The restaurant data (data/shops.json) is available under the ODbL. © OpenStreetMap contributors',
+  'info.shops': 'Restaurants are based on OpenStreetMap and Gerogle, the Gero Chamber of Commerce gourmet guide. The restaurant data (data/shops.json) is available under the ODbL. © OpenStreetMap contributors',
   'info.shopsCheckedOn': 'Restaurant data checked on: ',
   'info.close': 'Close',
 };
@@ -365,6 +371,9 @@ const zhHant = {
   'cuisine.chinese': '中華料理',
   'cuisine.curry': '咖哩',
   'cuisine.burger': '漢堡',
+
+  'cuisine.unagi': '鰻魚',
+  'cuisine.keichan': '雞醬燒',
   'cuisine.other': '其他料理',
 
   'bath.male': '男湯',
@@ -434,7 +443,7 @@ const zhHant = {
   'info.news': '官方公告（日文）',
   'info.hint': '步行時間為依直線距離估算的參考值。地圖 © OpenStreetMap contributors',
 
-  'info.shops': '餐廳資訊依據 OpenStreetMap 及下呂溫泉觀光協會的資料。餐廳資料（data/shops.json）以 ODbL 授權提供。© OpenStreetMap contributors',
+  'info.shops': '餐廳資訊依據 OpenStreetMap 及下呂商工會美食指南的資料。餐廳資料（data/shops.json）以 ODbL 授權提供。© OpenStreetMap contributors',
   'info.shopsCheckedOn': '餐廳資料確認日：',
   'info.close': '關閉',
 };
@@ -511,6 +520,9 @@ const zhHans = {
   'cuisine.chinese': '中餐',
   'cuisine.curry': '咖喱',
   'cuisine.burger': '汉堡',
+
+  'cuisine.unagi': '鳗鱼',
+  'cuisine.keichan': '鸡酱烧',
   'cuisine.other': '其他料理',
 
   'bath.male': '男汤',
@@ -580,7 +592,7 @@ const zhHans = {
   'info.news': '官方公告（日文）',
   'info.hint': '步行时间为按直线距离估算的参考值。地图 © OpenStreetMap contributors',
 
-  'info.shops': '餐厅信息依据 OpenStreetMap 及下吕温泉观光协会的资料。餐厅数据（data/shops.json）以 ODbL 许可提供。© OpenStreetMap contributors',
+  'info.shops': '餐厅信息依据 OpenStreetMap 及下吕商工会美食指南的资料。餐厅数据（data/shops.json）以 ODbL 许可提供。© OpenStreetMap contributors',
   'info.shopsCheckedOn': '餐厅数据确认日：',
   'info.close': '关闭',
 };
@@ -657,6 +669,9 @@ const ko = {
   'cuisine.chinese': '중식',
   'cuisine.curry': '카레',
   'cuisine.burger': '햄버거',
+
+  'cuisine.unagi': '장어',
+  'cuisine.keichan': '게짱(닭고기 철판구이)',
   'cuisine.other': '기타 요리',
 
   'bath.male': '남탕',
@@ -726,7 +741,7 @@ const ko = {
   'info.news': '공식 공지(일본어)',
   'info.hint': '도보 시간은 직선거리로 계산한 참고값입니다. 지도 © OpenStreetMap contributors',
 
-  'info.shops': '음식점 정보는 OpenStreetMap과 게로온천 관광협회의 정보를 바탕으로 합니다. 음식점 데이터(data/shops.json)는 ODbL로 제공합니다. © OpenStreetMap contributors',
+  'info.shops': '음식점 정보는 OpenStreetMap과 게로 상공회 맛집 안내의 정보를 바탕으로 합니다. 음식점 데이터(data/shops.json)는 ODbL로 제공합니다. © OpenStreetMap contributors',
   'info.shopsCheckedOn': '음식점 데이터 확인일: ',
   'info.close': '닫기',
 };

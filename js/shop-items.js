@@ -4,7 +4,7 @@ import { walkMinutes } from './geo.js';
 // 料理の種類として使える言葉。増やすときは messages.js の cuisine.<言葉> も5言語分足す。
 export const CUISINES = Object.freeze([
   'soba', 'udon', 'ramen', 'hidagyu', 'sushi', 'japanese', 'teishoku', 'izakaya',
-  'yakiniku', 'western', 'italian', 'chinese', 'curry', 'burger', 'other',
+  'yakiniku', 'western', 'italian', 'chinese', 'curry', 'burger', 'unagi', 'keichan', 'other',
 ]);
 
 // 店は温泉と違って滞在時間を考えず、着いた時刻にラストオーダー（無ければ閉店前）に間に合うかで決める

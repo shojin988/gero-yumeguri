@@ -8,6 +8,12 @@
 
 施設に不利益を与えないため、料金（通常料金・手形の価格）は扱いません。
 
+## 表示する種類（温泉・飲食店）
+
+地図と一覧の上のボタンで「温泉」「飲食店」の表示を切り替えます（同時表示も可、初回は温泉だけ）。種類の一覧は `js/categories.js` にあり、種類を増やすときはここに1行足し、`js/messages.js` に名前の訳を足します。プランは温泉だけで組みます。
+
+飲食店のデータ（`data/shops.json`）は OpenStreetMap と下呂商工会の「げろぐる」をもとにしています（出典と写し方の決まりは `data/sources.md`）。営業時間を確かめた店だけ状態の色を付け、それ以外は「営業時間は店にご確認ください」と表示します。`data/shops.json` は OpenStreetMap のデータをもとにしているため、Open Database License（ODbL）で提供します。© OpenStreetMap contributors
+
 ## 言語
 
 日本語・英語・中国語（繁体字・簡体字）・韓国語に対応しています。URL の `?lang=`（`ja` / `en` / `zh-Hant` / `zh-Hans` / `ko`）、前回選んだ言語、端末の言語の順で決まり、対応していない言語の端末では英語になります。特定の言語のポスターには `?lang=` 付きの URL の QR コードを使います。画面の文言は `js/messages.js`、施設名とメモの翻訳は `data/facilities.json` の `i18n` にあります。中国語・韓国語の文言とメモは作者による翻訳で、ネイティブの確認は未実施です。
@@ -39,6 +45,14 @@ npm run test:e2e       # 画面のテスト（Playwright）
 3. 徒歩で行けない施設（下呂駅から車・送迎が必要な施設）には `"walkable": false` を付ける。回る順番の提案から外れ、地図と一覧には「徒歩圏外（車・送迎）」と表示される。
 4. `data/facilities.json` の `checkedOn` を確認した日にする。
 5. `npm test` と `npm run test:e2e` を通してから、コミットして GitHub に push する（GitHub Pages に反映される）。
+
+### 飲食店データ
+
+```bash
+node tools/import-osm.js   # OpenStreetMap の候補と前回との違いを docs/shop-drafts/ に書き出す
+```
+
+ツールは `data/shops.json` を書き換えません。候補と差分を げろぐる などの情報と見比べてから、`data/shops.json` と `data/sources.md` を手で直し、`checkedOn` を確認した日にします。
 
 ### 祝日データ
 

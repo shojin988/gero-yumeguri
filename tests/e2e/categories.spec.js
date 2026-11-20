@@ -102,6 +102,14 @@ test('toggles restaurant pins on the map', async ({ page }) => {
   await expect(page.locator('.legend-shops')).toBeHidden();
 });
 
+test('draws restaurant pins below onsen pins', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  await expect(page.locator('.leaflet-shops-pane .shop-pin')).toHaveCount(3);
+  const zIndex = (selector) => page.locator(selector).evaluate((node) => Number(getComputedStyle(node).zIndex));
+  expect(await zIndex('.leaflet-shops-pane')).toBeLessThan(await zIndex('.leaflet-overlay-pane'));
+});
+
 test('opens a light card for a restaurant pin', async ({ page }) => {
   await openApp(page);
   await foodButton(page).click();
