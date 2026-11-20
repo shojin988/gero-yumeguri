@@ -14,7 +14,11 @@ const SHOPS_FIXTURE = readFileSync(new URL('./fixtures/shops.json', import.meta.
 
 // 既定では混雑データは取れない扱いにして、時刻からの判定だけで動く画面を確かめる。
 // 飲食店はテスト用の3軒（fixtures/shops.json）に固定し、shops: 'fail' で読み込み失敗にする。
-export async function openApp(page, { now = MONDAY_10AM, congestion = null, path = '/', shops = 'fixture' } = {}) {
+// savedCategories を渡すと、開く前に「表示する種類」を保存しておく（温泉のピンが出ない場合は待たない）。
+export async function openApp(page, { now = MONDAY_10AM, congestion = null, path = '/', shops = 'fixture', savedCategories = null } = {}) {
+  if (savedCategories !== null) {
+    await page.addInitScript((value) => localStorage.setItem('gero-yumeguri:categories:v1', value), JSON.stringify(savedCategories));
+  }
   await page.route('**/data/shops.json', (route) => (shops === 'fail'
     ? route.abort()
     : route.fulfill({ status: 200, contentType: 'application/json', body: SHOPS_FIXTURE })));
@@ -25,5 +29,7 @@ export async function openApp(page, { now = MONDAY_10AM, congestion = null, path
   await page.route('https://www.google.com/maps/embed**', (route) => route.fulfill({ status: 200, contentType: 'text/html', body: '<p>street view</p>' }));
   await page.clock.setFixedTime(now);
   await page.goto(path);
-  await expect(page.locator('.pin')).toHaveCount(FACILITIES.length);
+  if (savedCategories === null || savedCategories.includes('onsen')) {
+    await expect(page.locator('.pin')).toHaveCount(FACILITIES.length);
+  }
 }

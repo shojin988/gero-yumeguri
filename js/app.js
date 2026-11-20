@@ -119,6 +119,11 @@ function renderNotices(context) {
   elements.notices.replaceChildren(...messages.map((text) => el('p', { className: 'notice', text })));
 }
 
+function walkableFacilities() {
+  const walkable = state.data.facilities.filter((facility) => facility.walkable !== false);
+  return walkable.length > 0 ? walkable : state.data.facilities;
+}
+
 function renderAll() {
   if (!state.data) {
     return;
@@ -139,6 +144,7 @@ function renderAll() {
   const liveAt = state.congestion?.fetchedAt ?? null;
   mapView.render({
     items: visible,
+    fitPoints: walkableFacilities(),
     origin: context.origin.point,
     originLabel: context.originLabel,
     liveAt,

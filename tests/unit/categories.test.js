@@ -18,3 +18,8 @@ test('filterByCategory keeps only visible categories', () => {
   assert.deepEqual(filterByCategory(items, ['food']), [{ category: 'food' }]);
   assert.deepEqual(filterByCategory(items, []), []);
 });
+
+test('sanitizeVisibleCategories falls back when only unknown ids remain', () => {
+  assert.deepEqual(sanitizeVisibleCategories(['bogus']), ['onsen']);
+  assert.deepEqual(sanitizeVisibleCategories(['bogus', 'food']), ['food']);
+});

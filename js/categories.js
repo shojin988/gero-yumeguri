@@ -14,7 +14,9 @@ export function sanitizeVisibleCategories(value) {
   if (!Array.isArray(value)) {
     return [...DEFAULT_VISIBLE];
   }
-  return CATEGORIES.map((category) => category.id).filter((id) => value.includes(id));
+  const known = CATEGORIES.map((category) => category.id).filter((id) => value.includes(id));
+  // 自分で全部オフにした [] はそのまま。種類の id が変わって何も残らない古い保存値は初期値に戻す
+  return value.length > 0 && known.length === 0 ? [...DEFAULT_VISIBLE] : known;
 }
 
 export function filterByCategory(items, visible) {

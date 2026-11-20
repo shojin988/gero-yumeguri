@@ -85,13 +85,15 @@ export function createMapView({ mapElement, cardElement }) {
         iconSize: [SHOP_ICON_SIZE, SHOP_ICON_SIZE],
       }),
       pane: SHOP_PANE,
+      // Leaflet が icon の title に入れる（読み上げで店名が分かるように）
+      title: shopName(item.shop),
     });
     addLabel(marker, shopName(item.shop))
       .on('click', () => showCard(item, cardOptions))
       .addTo(pinLayer);
   }
 
-  function render({ items, origin, originLabel, liveAt = null, showOriginDot, showShopLegend = false }) {
+  function render({ items, fitPoints, origin, originLabel, liveAt = null, showOriginDot, showShopLegend = false }) {
     pinLayer.clearLayers();
     items.forEach((item) => (item.shop ? addShopPin : addPin)(item, { originLabel, liveAt }));
     legendElement.querySelector('.legend-shops').hidden = !showShopLegend;
@@ -100,12 +102,9 @@ export function createMapView({ mapElement, cardElement }) {
         radius: 8, color: '#ffffff', weight: 3, fillColor: '#1565c0', fillOpacity: 1, className: 'me',
       }).addTo(pinLayer);
     }
-    // 最初の表示範囲は今までどおり温泉だけで決める
-    const onsenItems = items.filter((item) => !item.shop);
-    if (!hasFitted && onsenItems.length > 0) {
-      const walkableItems = onsenItems.filter((item) => item.walk !== null);
-      const fitItems = walkableItems.length > 0 ? walkableItems : onsenItems;
-      map.fitBounds(L.latLngBounds(fitItems.map((item) => [item.facility.lat, item.facility.lng])), { padding: [24, 24] });
+    // 最初の表示範囲は、表示中の種類に関係なく歩いて行ける温泉で決める（温泉を消していても地図が出るように）
+    if (!hasFitted && fitPoints.length > 0) {
+      map.fitBounds(L.latLngBounds(fitPoints.map((point) => [point.lat, point.lng])), { padding: [24, 24] });
       hasFitted = true;
     }
   }

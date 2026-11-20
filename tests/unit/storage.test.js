@@ -57,7 +57,7 @@ test('loadVisibleCategories falls back to onsen only', () => {
   assert.deepEqual(loadVisibleCategories(memoryStorage()), ['onsen']);
   assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '{broken' })), ['onsen']);
   assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '"food"' })), ['onsen']);
-  assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '["bogus"]' })), []);
+  assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '["bogus"]' })), ['onsen']);
   assert.deepEqual(loadVisibleCategories(throwingStorage), ['onsen']);
   assert.deepEqual(loadVisibleCategories(null), ['onsen']);
   assert.equal(saveVisibleCategories(['food'], throwingStorage), false);

@@ -102,6 +102,25 @@ test('toggles restaurant pins on the map', async ({ page }) => {
   await expect(page.locator('.legend-shops')).toBeHidden();
 });
 
+test('shows the map when reopened with restaurants only', async ({ page }) => {
+  await openApp(page, { savedCategories: ['food'] });
+  await expect(page.locator('.shop-pin')).toHaveCount(3);
+  await expect(page.locator('.pin')).toHaveCount(0);
+  await expect(page.locator('.leaflet-tile').first()).toBeAttached();
+});
+
+test('shows the background map when reopened with everything off', async ({ page }) => {
+  await openApp(page, { savedCategories: [] });
+  await expect(page.locator('.leaflet-tile').first()).toBeAttached();
+  await expect(page.locator('.pin, .shop-pin')).toHaveCount(0);
+});
+
+test('names restaurant pins for screen readers', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  await expect(page.locator('#map').getByRole('button', { name: 'テストそば' })).toHaveCount(1);
+});
+
 test('draws restaurant pins below onsen pins', async ({ page }) => {
   await openApp(page);
   await foodButton(page).click();
