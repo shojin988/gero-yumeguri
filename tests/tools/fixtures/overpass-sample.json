@@ -1,0 +1,25 @@
+{
+  "version": 0.6,
+  "elements": [
+    {
+      "type": "node", "id": 101, "lat": 35.8061, "lon": 137.2431,
+      "tags": { "amenity": "restaurant", "name": "サンプルそば", "name:en": "Sample Soba", "cuisine": "soba;udon", "opening_hours": "Mo-Su 11:00-15:00", "website": "https://example.com/soba" }
+    },
+    {
+      "type": "way", "id": 202, "center": { "lat": 35.8071, "lon": 137.2441 },
+      "tags": { "amenity": "restaurant", "name": "サンプル麺処", "cuisine": "noodle" }
+    },
+    {
+      "type": "node", "id": 303, "lat": 35.8081, "lon": 137.2451,
+      "tags": { "amenity": "fast_food" }
+    },
+    {
+      "type": "node", "id": 404, "lat": 35.8091, "lon": 137.2461,
+      "tags": { "amenity": "restaurant", "name": "サンプル食堂", "website": "http://example.com/shokudo" }
+    },
+    {
+      "type": "node", "id": 505, "lat": 35.8101, "lon": 137.2471,
+      "tags": { "amenity": "restaurant", "name": "サンプル菜食", "cuisine": "vegan", "phone": "+81-576-00-0000" }
+    }
+  ]
+}
