@@ -22,6 +22,7 @@ test('precaches every module, data file and icon', () => {
     './manifest.webmanifest',
     './data/facilities.json',
     './data/holidays.json',
+    './data/shops.json',
     './vendor/leaflet/leaflet.js',
     './vendor/leaflet/leaflet.css',
     './icons/icon.svg',
