@@ -42,3 +42,28 @@ export function makeFacility(id, options = {}) {
     ...(walkable === false ? { walkable: false } : {}),
   };
 }
+
+export function makeShop(id, options = {}) {
+  const {
+    lat = 35.801,
+    lng = 137.24,
+    windows = [['11:00', '15:00', '14:30']],
+    days = ALL_DAY_TYPES,
+  } = options;
+  const unknown = options.schedule === null;
+  return {
+    id,
+    category: 'food',
+    name: options.name ?? id,
+    ...(options.names ? { names: options.names } : {}),
+    cuisine: options.cuisine ?? ['soba'],
+    lat,
+    lng,
+    schedule: unknown ? null : options.schedule ?? [{ days, windows: windows.map(toWindow) }],
+    irregularClosure: options.irregularClosure ?? false,
+    hoursSource: unknown ? null : 'https://example.com/hours',
+    officialUrl: options.officialUrl ?? null,
+    mapsUrl: 'https://example.com/map',
+    osm: null,
+  };
+}

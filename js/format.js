@@ -8,13 +8,24 @@ export function statusLabel(status) {
   return STATUSES.has(status) ? t(`status.${status}`) : status;
 }
 
-function formatRange(range) {
-  const lastEntry = range.lastEntry !== null ? t('hours.lastEntry', { time: formatHm(range.lastEntry) }) : '';
+function formatRange(range, keys) {
+  const lastEntry = range.lastEntry !== null ? t(keys.lastEntry, { time: formatHm(range.lastEntry) }) : '';
   return t('hours.range', { start: formatHm(range.start), end: formatHm(range.end) }) + lastEntry;
 }
 
-export function formatWindows(windows) {
-  return windows.length === 0 ? t('hours.none') : windows.map(formatRange).join(t('hours.separator'));
+const ONSEN_HOUR_KEYS = Object.freeze({ lastEntry: 'hours.lastEntry', none: 'hours.none' });
+export const SHOP_HOUR_KEYS = Object.freeze({ lastEntry: 'hours.lastOrder', none: 'hours.shopNone' });
+
+export function formatWindows(windows, keys = ONSEN_HOUR_KEYS) {
+  return windows.length === 0 ? t(keys.none) : windows.map((range) => formatRange(range, keys)).join(t('hours.separator'));
+}
+
+export function shopStatusLabel(status) {
+  return t(`shopStatus.${status}`);
+}
+
+export function cuisineLabel(id) {
+  return t(`cuisine.${id}`);
 }
 
 // 公式に無い状態は、公式の文言（日本語）のまま出す

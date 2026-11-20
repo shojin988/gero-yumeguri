@@ -1,6 +1,6 @@
 import { blocksEntry, congestionFor } from './congestion.js';
 import { facilityStatus, windowsForDay } from './hours.js';
-import { currentLocale, facilityName } from './i18n.js';
+import { currentLocale, facilityName, shopName } from './i18n.js';
 import { walkMinutes } from './geo.js';
 
 const TAKING_GUESTS = new Set(['vacant', 'busy', 'crowded']);
@@ -36,11 +36,15 @@ export function buildFacilityItems({ facilities, day, now, origin, stay, congest
     const live = congestionFor(facility, congestion);
     const scheduleStatus = facilityStatus(windows, now + (walk ?? 0), stay);
     const status = combineStatus(scheduleStatus, statusFromLive(live, facility.congestionPlaceIds?.length ?? 0), windows, now);
-    return { facility, windows, walk, live, scheduleStatus, status, followsLive: status !== scheduleStatus };
+    return { category: 'onsen', facility, windows, walk, live, scheduleStatus, status, followsLive: status !== scheduleStatus };
   });
 }
 
-const byName = (a, b) => facilityName(a.facility).localeCompare(facilityName(b.facility), currentLocale());
+export function itemName(item) {
+  return item.shop ? shopName(item.shop) : facilityName(item.facility);
+}
+
+const byName = (a, b) => itemName(a).localeCompare(itemName(b), currentLocale());
 
 const COMPARATORS = {
   distance: (a, b) => (a.walk ?? Infinity) - (b.walk ?? Infinity) || byName(a, b),

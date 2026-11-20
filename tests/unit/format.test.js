@@ -1,7 +1,10 @@
 import { afterEach, test } from 'node:test';
 import assert from 'node:assert/strict';
 import * as format from '../../js/format.js';
-import { formatLive, formatLiveHeading, formatWalk, formatWindows, statusLabel } from '../../js/format.js';
+import {
+  SHOP_HOUR_KEYS, cuisineLabel, formatLive, formatLiveHeading, formatWalk, formatWindows, shopStatusLabel, statusLabel,
+} from '../../js/format.js';
+import { CUISINES } from '../../js/shop-items.js';
 import { setLanguage } from '../../js/i18n.js';
 
 afterEach(() => setLanguage('ja'));
@@ -61,4 +64,25 @@ test('formats hours, walks and congestion in English', () => {
   ]).map((chip) => chip.text), ['Men: Not crowded', 'Women: Very crowded']);
   assert.deepEqual(formatLive([{ bath: 'male', level: 'unknown', label: '清掃中' }]).map((chip) => chip.text), ['清掃中']);
   assert.equal(formatLiveHeading(21 * 60 + 5), 'Official crowd status (as of 21:05)');
+});
+
+test('formatWindows can use restaurant wording', () => {
+  assert.equal(formatWindows([{ start: 660, end: 900, lastEntry: 870 }], SHOP_HOUR_KEYS), '11:00〜15:00（ラストオーダー14:30）');
+  assert.equal(formatWindows([], SHOP_HOUR_KEYS), '今日は休み');
+  assert.equal(formatWindows([]), '今日は手形で入れません');
+});
+
+test('every cuisine has a label in every language', () => {
+  for (const language of ['ja', 'en', 'zh-Hant', 'zh-Hans', 'ko']) {
+    setLanguage(language);
+    for (const id of CUISINES) {
+      assert.notEqual(cuisineLabel(id), `cuisine.${id}`, `${language} ${id}`);
+    }
+  }
+});
+
+test('shopStatusLabel names every restaurant status', () => {
+  assert.deepEqual(['open', 'later', 'closed', 'unknown'].map(shopStatusLabel), ['今から行ける', 'このあと開店', '今日は終了・休み', '営業時間は店に確認']);
+  setLanguage('en');
+  assert.equal(shopStatusLabel('unknown'), 'Hours unconfirmed');
 });

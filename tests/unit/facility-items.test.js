@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildDayContext } from '../../js/hours.js';
-import { buildFacilityItems, filterItems, sortItems } from '../../js/facility-items.js';
+import { buildFacilityItems, filterItems, itemName, sortItems } from '../../js/facility-items.js';
 import { HOLIDAYS, STATION, makeFacility } from './fixtures.js';
 
 const MONDAY = buildDayContext('2026-10-05', HOLIDAYS);
@@ -124,4 +124,23 @@ test('filterItems keeps only facilities that are open now', () => {
     { facility: { name: 'き' }, walk: 1, status: 'open' },
   ];
   assert.deepEqual(names(filterItems(items, { openOnly: true })), ['き']);
+});
+
+test('facility items carry the onsen category', () => {
+  const [item] = buildFacilityItems({ facilities: [makeFacility('a')], day: MONDAY, now: 600, origin: STATION, stay: 30 });
+  assert.equal(item.category, 'onsen');
+});
+
+test('sortItems mixes onsen and shop items by name and distance', () => {
+  const mixed = [
+    { category: 'food', shop: { name: 'う' }, walk: 1, status: 'open' },
+    { category: 'onsen', facility: { name: 'あ' }, walk: 3, status: 'open' },
+  ];
+  assert.deepEqual(sortItems(mixed, 'name').map(itemName), ['あ', 'う']);
+  assert.deepEqual(sortItems(mixed, 'distance').map(itemName), ['う', 'あ']);
+});
+
+test('filterItems keeps only shops confirmed open', () => {
+  const shops = ['open', 'later', 'closed', 'unknown'].map((status) => ({ category: 'food', shop: { name: status }, walk: 1, status }));
+  assert.deepEqual(filterItems(shops, { openOnly: true }).map(itemName), ['open']);
 });

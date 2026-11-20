@@ -104,6 +104,11 @@ export function facilityName(facility) {
   return translated(facility)?.name ?? facility.name;
 }
 
+// 店名は日本語のまま出し、OSM などから取った訳がある言語だけその名前を使う
+export function shopName(shop) {
+  return language === DEFAULT_LANGUAGE ? shop.name : shop.names?.[language] ?? shop.name;
+}
+
 export function facilityNotes(facility) {
   return translated(facility)?.notes ?? facility.notes;
 }

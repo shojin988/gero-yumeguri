@@ -21,6 +21,7 @@ const ASSETS = [
   './js/messages.js',
   './js/plan-view.js',
   './js/planner.js',
+  './js/shop-items.js',
   './js/storage.js',
   './data/facilities.json',
   './data/holidays.json',

@@ -1,7 +1,7 @@
 import { afterEach, test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  LANGUAGES, LANGUAGE_NAMES, currentLanguage, facilityName, facilityNotes, loadLanguage, placeName, resolveLanguage, saveLanguage, setLanguage, t,
+  LANGUAGES, LANGUAGE_NAMES, currentLanguage, facilityName, facilityNotes, loadLanguage, placeName, resolveLanguage, saveLanguage, setLanguage, shopName, t,
 } from '../../js/i18n.js';
 import { MESSAGES } from '../../js/messages.js';
 
@@ -125,4 +125,16 @@ test('placeName translates places such as the station', () => {
   assert.equal(placeName(station), '下呂駅');
   setLanguage('en');
   assert.equal(placeName(station), 'Gero Station');
+});
+
+test('shopName uses the translated name only when present', () => {
+  const shop = { name: '朝霧', names: { en: 'Asagiri' } };
+  setLanguage('en');
+  assert.equal(shopName(shop), 'Asagiri');
+  setLanguage('ko');
+  assert.equal(shopName(shop), '朝霧', 'shopName falls back to Japanese');
+  setLanguage('ja');
+  assert.equal(shopName(shop), '朝霧');
+  setLanguage('en');
+  assert.equal(shopName({ name: '朝霧' }), '朝霧');
 });
