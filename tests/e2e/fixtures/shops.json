@@ -1,0 +1,52 @@
+{
+  "checkedOn": "2026-10-01",
+  "shops": [
+    {
+      "id": "osm-node-1",
+      "category": "food",
+      "name": "テストそば",
+      "names": { "en": "Test Soba" },
+      "cuisine": ["soba"],
+      "lat": 35.8068,
+      "lng": 137.2436,
+      "schedule": [
+        { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun", "hol"], "windows": [{ "start": "09:30", "end": "15:00", "lastEntry": "14:30" }] }
+      ],
+      "irregularClosure": false,
+      "hoursSource": "https://example.com/soba",
+      "officialUrl": "https://example.com/soba",
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=test-soba",
+      "osm": "node/1"
+    },
+    {
+      "id": "osm-node-2",
+      "category": "food",
+      "name": "テスト食堂",
+      "cuisine": ["teishoku"],
+      "lat": 35.8058,
+      "lng": 137.2446,
+      "schedule": [
+        { "days": ["sat", "sun"], "windows": [{ "start": "11:00", "end": "14:00" }] }
+      ],
+      "irregularClosure": true,
+      "hoursSource": "https://example.com/shokudo",
+      "officialUrl": null,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=test-shokudo",
+      "osm": "node/2"
+    },
+    {
+      "id": "local-test-3",
+      "category": "food",
+      "name": "テスト亭",
+      "cuisine": ["japanese"],
+      "lat": 35.8072,
+      "lng": 137.2450,
+      "schedule": null,
+      "irregularClosure": false,
+      "hoursSource": null,
+      "officialUrl": null,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=test-tei",
+      "osm": null
+    }
+  ]
+}

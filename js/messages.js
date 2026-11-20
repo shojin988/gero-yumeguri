@@ -19,6 +19,9 @@ const ja = {
   'notice.noPosition': '現在地が取れないため、下呂駅を基準に表示しています。',
   'notice.stale': 'データが古い可能性があります（確認日 {date}）。ⓘから公式ページを確認してください。',
   'notice.noHolidays': '今年の祝日データがありません。祝日かどうかはプランタブで設定してください。',
+
+  'notice.shopsFailed': '飲食店の情報を読み込めませんでした。',
+  'notice.shopsStale': '飲食店のデータが古い可能性があります（確認日 {date}）。',
   'load.failed': 'データを読み込めませんでした。',
   'load.officialPage': '公式の湯めぐり手形ページ',
   'load.checkThere': 'で確認してください。',
@@ -88,7 +91,9 @@ const ja = {
   'list.sort': '並び順',
   'list.sortDistance': '近い順',
   'list.sortName': '名前',
-  'list.openOnly': '今から入れる施設だけ',
+  'list.openOnly': '今から行けるところだけ',
+
+  'list.noCategory': '表示する種類を選んでください',
   'list.empty': '条件に合う施設はありません',
 
   'plan.date': '日付',
@@ -133,6 +138,9 @@ const ja = {
   'info.congestionPage': '公式の手形入浴 混雑状況',
   'info.news': '公式のお知らせ（ほっとニュース）',
   'info.hint': '徒歩時間は直線距離から計算した目安です。地図 © OpenStreetMap contributors',
+
+  'info.shops': '飲食店は OpenStreetMap と下呂温泉観光協会の情報をもとにしています。店のデータ（data/shops.json）は ODbL で提供します。© OpenStreetMap contributors',
+  'info.shopsCheckedOn': '飲食店データ確認日：',
   'info.close': '閉じる',
 };
 
@@ -154,6 +162,9 @@ const en = {
   'notice.noPosition': 'Your location is not available, so distances are shown from Gero Station.',
   'notice.stale': 'The data may be out of date (checked on {date}). Please check the official page from the ⓘ button.',
   'notice.noHolidays': 'There is no public holiday data for this year. Set holidays yourself in the Plan tab.',
+
+  'notice.shopsFailed': 'Could not load restaurant information.',
+  'notice.shopsStale': 'Restaurant data may be out of date (checked {date}).',
   'load.failed': 'The data could not be loaded. ',
   'load.officialPage': 'Please check the official Yumeguri Pass page',
   'load.checkThere': ' (Japanese).',
@@ -223,7 +234,9 @@ const en = {
   'list.sort': 'Sort by',
   'list.sortDistance': 'Nearest',
   'list.sortName': 'Name',
-  'list.openOnly': 'Only places open now',
+  'list.openOnly': 'Only places open when you arrive',
+
+  'list.noCategory': 'Choose what to show',
   'list.empty': 'No places match',
 
   'plan.date': 'Date',
@@ -268,6 +281,9 @@ const en = {
   'info.congestionPage': 'Official crowd status (Japanese)',
   'info.news': 'Official news (Japanese)',
   'info.hint': 'Walking times are estimates based on straight-line distance. Map © OpenStreetMap contributors',
+
+  'info.shops': 'Restaurants are based on OpenStreetMap and the Gero Onsen Tourism Association. The restaurant data (data/shops.json) is available under the ODbL. © OpenStreetMap contributors',
+  'info.shopsCheckedOn': 'Restaurant data checked on: ',
   'info.close': 'Close',
 };
 
@@ -289,6 +305,9 @@ const zhHant = {
   'notice.noPosition': '無法取得目前位置，因此改從下呂站計算距離。',
   'notice.stale': '資料可能已過時（確認日 {date}）。請從 ⓘ 查看官方網頁。',
   'notice.noHolidays': '沒有今年的國定假日資料。請在「行程」分頁自行設定是否為國定假日。',
+
+  'notice.shopsFailed': '無法載入餐廳資訊。',
+  'notice.shopsStale': '餐廳資料可能已過時（確認日 {date}）。',
   'load.failed': '無法載入資料。',
   'load.officialPage': '請查看官方湯巡手形網頁',
   'load.checkThere': '（日文）。',
@@ -358,7 +377,9 @@ const zhHant = {
   'list.sort': '排序',
   'list.sortDistance': '由近到遠',
   'list.sortName': '名稱',
-  'list.openOnly': '只顯示現在可入浴的設施',
+  'list.openOnly': '只顯示現在去可入浴或有營業的地方',
+
+  'list.noCategory': '請選擇要顯示的類別',
   'list.empty': '沒有符合條件的設施',
 
   'plan.date': '日期',
@@ -403,6 +424,9 @@ const zhHant = {
   'info.congestionPage': '官方擁擠狀況（日文）',
   'info.news': '官方公告（日文）',
   'info.hint': '步行時間為依直線距離估算的參考值。地圖 © OpenStreetMap contributors',
+
+  'info.shops': '餐廳資訊依據 OpenStreetMap 及下呂溫泉觀光協會的資料。餐廳資料（data/shops.json）以 ODbL 授權提供。© OpenStreetMap contributors',
+  'info.shopsCheckedOn': '餐廳資料確認日：',
   'info.close': '關閉',
 };
 
@@ -424,6 +448,9 @@ const zhHans = {
   'notice.noPosition': '无法获取当前位置，因此改从下吕站计算距离。',
   'notice.stale': '数据可能已过时（确认日 {date}）。请从 ⓘ 查看官方网页。',
   'notice.noHolidays': '没有今年的法定节假日数据。请在“行程”标签页自行设置是否为法定节假日。',
+
+  'notice.shopsFailed': '无法加载餐厅信息。',
+  'notice.shopsStale': '餐厅数据可能已过时（确认日 {date}）。',
   'load.failed': '无法加载数据。',
   'load.officialPage': '请查看官方汤巡手形网页',
   'load.checkThere': '（日文）。',
@@ -493,7 +520,9 @@ const zhHans = {
   'list.sort': '排序',
   'list.sortDistance': '由近到远',
   'list.sortName': '名称',
-  'list.openOnly': '只显示现在可入浴的设施',
+  'list.openOnly': '只显示现在去可入浴或有营业的地方',
+
+  'list.noCategory': '请选择要显示的类别',
   'list.empty': '没有符合条件的设施',
 
   'plan.date': '日期',
@@ -538,6 +567,9 @@ const zhHans = {
   'info.congestionPage': '官方拥挤情况（日文）',
   'info.news': '官方公告（日文）',
   'info.hint': '步行时间为按直线距离估算的参考值。地图 © OpenStreetMap contributors',
+
+  'info.shops': '餐厅信息依据 OpenStreetMap 及下吕温泉观光协会的资料。餐厅数据（data/shops.json）以 ODbL 许可提供。© OpenStreetMap contributors',
+  'info.shopsCheckedOn': '餐厅数据确认日：',
   'info.close': '关闭',
 };
 
@@ -559,6 +591,9 @@ const ko = {
   'notice.noPosition': '현재 위치를 알 수 없어 게로역을 기준으로 표시합니다.',
   'notice.stale': '데이터가 오래되었을 수 있습니다(확인일 {date}). ⓘ에서 공식 페이지를 확인하세요.',
   'notice.noHolidays': '올해의 공휴일 데이터가 없습니다. 플랜 탭에서 공휴일 여부를 직접 설정하세요.',
+
+  'notice.shopsFailed': '음식점 정보를 불러오지 못했습니다.',
+  'notice.shopsStale': '음식점 데이터가 오래되었을 수 있습니다(확인일 {date}).',
   'load.failed': '데이터를 불러오지 못했습니다. ',
   'load.officialPage': '공식 유메구리 데가타 페이지',
   'load.checkThere': '(일본어)에서 확인하세요.',
@@ -628,7 +663,9 @@ const ko = {
   'list.sort': '정렬',
   'list.sortDistance': '가까운 순',
   'list.sortName': '이름',
-  'list.openOnly': '지금 입욕 가능한 시설만',
+  'list.openOnly': '지금 가면 이용 가능한 곳만',
+
+  'list.noCategory': '표시할 종류를 선택하세요',
   'list.empty': '조건에 맞는 시설이 없습니다',
 
   'plan.date': '날짜',
@@ -673,6 +710,9 @@ const ko = {
   'info.congestionPage': '공식 혼잡 상황(일본어)',
   'info.news': '공식 공지(일본어)',
   'info.hint': '도보 시간은 직선거리로 계산한 참고값입니다. 지도 © OpenStreetMap contributors',
+
+  'info.shops': '음식점 정보는 OpenStreetMap과 게로온천 관광협회의 정보를 바탕으로 합니다. 음식점 데이터(data/shops.json)는 ODbL로 제공합니다. © OpenStreetMap contributors',
+  'info.shopsCheckedOn': '음식점 데이터 확인일: ',
   'info.close': '닫기',
 };
 

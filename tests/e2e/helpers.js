@@ -10,8 +10,14 @@ export const MONDAY_10AM = new Date('2026-10-05T10:00:00+09:00');
 
 export const CONGESTION_URL = 'https://kk-congestion-saas.antipasto.jp/json/GERO.json';
 
-// 既定では混雑データは取れない扱いにして、時刻からの判定だけで動く画面を確かめる
-export async function openApp(page, { now = MONDAY_10AM, congestion = null, path = '/' } = {}) {
+const SHOPS_FIXTURE = readFileSync(new URL('./fixtures/shops.json', import.meta.url), 'utf8');
+
+// 既定では混雑データは取れない扱いにして、時刻からの判定だけで動く画面を確かめる。
+// 飲食店はテスト用の3軒（fixtures/shops.json）に固定し、shops: 'fail' で読み込み失敗にする。
+export async function openApp(page, { now = MONDAY_10AM, congestion = null, path = '/', shops = 'fixture' } = {}) {
+  await page.route('**/data/shops.json', (route) => (shops === 'fail'
+    ? route.abort()
+    : route.fulfill({ status: 200, contentType: 'application/json', body: SHOPS_FIXTURE })));
   await page.route(CONGESTION_URL, (route) => (congestion
     ? route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(congestion) })
     : route.abort()));

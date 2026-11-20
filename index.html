@@ -26,6 +26,7 @@
     <button id="info-button" class="icon-button" type="button" aria-label="情報" data-i18n-aria-label="header.info">ⓘ</button>
   </header>
   <div id="notices" class="notices" aria-live="polite"></div>
+  <div id="category-bar" class="category-bar"></div>
   <main>
     <section id="tab-map" class="tab-panel" data-tab-panel="map" role="tabpanel" aria-label="地図" data-i18n-aria-label="tabs.map">
       <div id="map" class="map"></div>
@@ -39,7 +40,7 @@
             <option value="name" data-i18n="list.sortName">名前</option>
           </select>
         </label>
-        <label class="inline"><input type="checkbox" id="list-open-only"> <span data-i18n="list.openOnly">今から入れる施設だけ</span></label>
+        <label class="inline"><input type="checkbox" id="list-open-only"> <span data-i18n="list.openOnly">今から行けるところだけ</span></label>
       </div>
       <ul id="facility-list" class="facility-list"></ul>
     </section>
@@ -99,6 +100,8 @@
       <li><a href="https://www.gero-spa.or.jp/blog/" target="_blank" rel="noopener" data-i18n="info.news">公式のお知らせ（ほっとニュース）</a></li>
     </ul>
     <p class="hint" data-i18n="info.hint">徒歩時間は直線距離から計算した目安です。地図 © OpenStreetMap contributors</p>
+    <p class="hint" data-i18n="info.shops">飲食店は OpenStreetMap と下呂温泉観光協会の情報をもとにしています。店のデータ（data/shops.json）は ODbL で提供します。© OpenStreetMap contributors</p>
+    <p class="hint"><span data-i18n="info.shopsCheckedOn">飲食店データ確認日：</span><span id="info-shops-checked-on"></span></p>
     <form method="dialog"><button class="primary" data-i18n="info.close">閉じる</button></form>
   </dialog>
   <dialog id="exterior-dialog" class="exterior-dialog" aria-labelledby="exterior-title">

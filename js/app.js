@@ -1,3 +1,5 @@
+import { filterByCategory } from './categories.js';
+import { createCategoryToggle } from './category-toggle.js';
 import { createCongestionLoader, fetchCongestion } from './congestion.js';
 import { el } from './dom.js';
 import { createExteriorDialog } from './exterior.js';
@@ -10,7 +12,10 @@ import {
 import { createMapView } from './map-view.js';
 import { createListView } from './list-view.js';
 import { createPlanView } from './plan-view.js';
-import { loadPlanInputs, savePlanInputs } from './storage.js';
+import { buildShopItems } from './shop-items.js';
+import {
+  loadPlanInputs, loadVisibleCategories, savePlanInputs, saveVisibleCategories,
+} from './storage.js';
 
 const STALE_AFTER_DAYS = 180;
 const REFRESH_INTERVAL_MS = 60_000;
@@ -38,6 +43,8 @@ const elements = {
   infoDialog: document.getElementById('info-dialog'),
   infoCheckedOn: document.getElementById('info-checked-on'),
   infoStale: document.getElementById('info-stale'),
+  infoShopsCheckedOn: document.getElementById('info-shops-checked-on'),
+  categoryBar: document.getElementById('category-bar'),
 };
 
 const mapView = createMapView({
@@ -58,7 +65,17 @@ const listView = createListView({
   onShowExterior: (facility) => exteriorDialog.open(facility),
 });
 
-let state = { data: null, holidays: null, congestion: null, position: null, positionStatus: 'pending', planInputs: loadPlanInputs() };
+let state = {
+  data: null,
+  holidays: null,
+  shops: null,
+  shopsFailed: false,
+  congestion: null,
+  position: null,
+  positionStatus: 'pending',
+  planInputs: loadPlanInputs(),
+  visibleCategories: loadVisibleCategories(),
+};
 
 function setState(patch) {
   state = { ...state, ...patch };
@@ -92,6 +109,13 @@ function renderNotices(context) {
   if (!context.day.hasHolidayData) {
     messages.push(t('notice.noHolidays'));
   }
+  if (state.visibleCategories.includes('food')) {
+    if (state.shopsFailed) {
+      messages.push(t('notice.shopsFailed'));
+    } else if (state.shops && daysBetween(state.shops.checkedOn, context.todayKey) > STALE_AFTER_DAYS) {
+      messages.push(t('notice.shopsStale', { date: state.shops.checkedOn }));
+    }
+  }
   elements.notices.replaceChildren(...messages.map((text) => el('p', { className: 'notice', text })));
 }
 
@@ -100,7 +124,7 @@ function renderAll() {
     return;
   }
   const context = buildContext();
-  const items = buildFacilityItems({
+  const onsenItems = buildFacilityItems({
     facilities: state.data.facilities,
     day: context.day,
     now: context.now,
@@ -108,9 +132,19 @@ function renderAll() {
     stay: state.planInputs.stay,
     congestion: state.congestion?.places ?? null,
   });
+  const shopItems = state.shops
+    ? buildShopItems({ shops: state.shops.shops, day: context.day, now: context.now, origin: context.origin.point })
+    : [];
+  const visible = filterByCategory([...onsenItems, ...shopItems], state.visibleCategories);
   const liveAt = state.congestion?.fetchedAt ?? null;
-  mapView.render({ items, origin: context.origin.point, originLabel: context.originLabel, liveAt, showOriginDot: !context.origin.isFallback });
-  listView.render(items, { originLabel: context.originLabel, liveAt });
+  mapView.render({
+    items: visible.filter((item) => item.category === 'onsen'),
+    origin: context.origin.point,
+    originLabel: context.originLabel,
+    liveAt,
+    showOriginDot: !context.origin.isFallback,
+  });
+  listView.render(visible, { originLabel: context.originLabel, liveAt, noCategory: state.visibleCategories.length === 0 });
   renderNotices(context);
   elements.infoStale.hidden = !context.isStale;
 }
@@ -122,6 +156,8 @@ function selectTab(name) {
   for (const panel of document.querySelectorAll('[data-tab-panel]')) {
     panel.hidden = panel.dataset.tabPanel !== name;
   }
+  // プランは温泉だけで組むので、プランタブでは種類の切り替えを出さない
+  elements.categoryBar.hidden = name === 'plan';
   if (name === 'map') {
     mapView.refreshSize();
   }
@@ -187,6 +223,27 @@ async function loadJson(path) {
   return response.json();
 }
 
+// 店の情報が読めなくても温泉は今までどおり出す
+async function loadShops() {
+  try {
+    return { shops: await loadJson('data/shops.json'), shopsFailed: false };
+  } catch (error) {
+    console.warn('飲食店データを読み込めませんでした', error);
+    return { shops: null, shopsFailed: true };
+  }
+}
+
+function setupCategoryToggle() {
+  createCategoryToggle({
+    container: elements.categoryBar,
+    initial: state.visibleCategories,
+    onChange: (visibleCategories) => {
+      saveVisibleCategories(visibleCategories);
+      setState({ visibleCategories });
+    },
+  });
+}
+
 async function loadHolidays() {
   try {
     return await loadJson('data/holidays.json');
@@ -213,6 +270,7 @@ function setupChrome() {
   for (const button of document.querySelectorAll('[data-tab]')) {
     button.addEventListener('click', () => selectTab(button.dataset.tab));
   }
+  setupCategoryToggle();
   elements.infoButton.addEventListener('click', () => elements.infoDialog.showModal());
   setupLanguageSelect();
   window.addEventListener('online', updateOnlineBadge);
@@ -270,9 +328,10 @@ async function start() {
     showLoadError(error);
     return;
   }
-  const holidays = await loadHolidays();
+  const [holidays, shopsResult] = await Promise.all([loadHolidays(), loadShops()]);
   elements.infoCheckedOn.textContent = data.checkedOn;
-  setState({ data, holidays });
+  elements.infoShopsCheckedOn.textContent = shopsResult.shops?.checkedOn ?? '';
+  setState({ data, holidays, ...shopsResult });
   setupPlanView();
   watchPosition();
   setInterval(renderAll, REFRESH_INTERVAL_MS);

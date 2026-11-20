@@ -30,7 +30,7 @@ test('shows the live congestion of each bath on the card', async ({ page }) => {
 test('leaves out open facilities that refuse guests when filtering', async ({ page }) => {
   await openList(page, { congestion: congestionFor([['kurgarten', ['入浴不可', '大変混雑']]]) });
   await expect(page.locator('.facility-card[data-facility-id="kurgarten"]')).toHaveCount(1);
-  await page.getByLabel('今から入れる施設だけ').check();
+  await page.getByLabel('今から行けるところだけ').check();
   await expect(page.locator('.facility-card[data-facility-id="kurgarten"]')).toHaveCount(0);
   await expect(page.locator('.facility-card[data-facility-id="shirasagi-no-yu"]')).toHaveCount(1);
 });
@@ -46,7 +46,7 @@ test('follows the official status when it differs from the timetable', async ({ 
   const card = page.locator('.facility-card[data-facility-id="kisoya"]');
   await expect(card.locator('.status-chip')).toHaveText('今から入れる');
   await expect(card.locator('.card-follows-live')).toHaveText('時刻表と異なりますが、公式の混雑状況に合わせています');
-  await page.getByLabel('今から入れる施設だけ').check();
+  await page.getByLabel('今から行けるところだけ').check();
   await expect(card).toHaveCount(1);
 });
 
