@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  DEFAULT_PLAN_INPUTS, STORAGE_KEY, loadPlanInputs, sanitizePlanInputs, savePlanInputs,
+  CATEGORIES_STORAGE_KEY, DEFAULT_PLAN_INPUTS, STORAGE_KEY, loadPlanInputs, loadVisibleCategories, sanitizePlanInputs, savePlanInputs, saveVisibleCategories,
 } from '../../js/storage.js';
 
 function memoryStorage(initial = {}) {
@@ -45,4 +45,21 @@ test('storage errors fall back to defaults', () => {
 test('missing storage falls back to defaults', () => {
   assert.deepEqual(loadPlanInputs(null), DEFAULT_PLAN_INPUTS);
   assert.equal(savePlanInputs(DEFAULT_PLAN_INPUTS, null), false);
+});
+
+test('visible categories round-trip', () => {
+  const storage = memoryStorage();
+  assert.equal(saveVisibleCategories(['onsen', 'food'], storage), true);
+  assert.deepEqual(loadVisibleCategories(storage), ['onsen', 'food']);
+});
+
+test('loadVisibleCategories falls back to onsen only', () => {
+  assert.deepEqual(loadVisibleCategories(memoryStorage()), ['onsen']);
+  assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '{broken' })), ['onsen']);
+  assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '"food"' })), ['onsen']);
+  assert.deepEqual(loadVisibleCategories(memoryStorage({ [CATEGORIES_STORAGE_KEY]: '["bogus"]' })), []);
+  assert.deepEqual(loadVisibleCategories(throwingStorage), ['onsen']);
+  assert.deepEqual(loadVisibleCategories(null), ['onsen']);
+  assert.equal(saveVisibleCategories(['food'], throwingStorage), false);
+  assert.equal(saveVisibleCategories(['food'], null), false);
 });

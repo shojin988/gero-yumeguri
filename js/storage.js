@@ -1,4 +1,7 @@
+import { sanitizeVisibleCategories } from './categories.js';
+
 export const STORAGE_KEY = 'gero-yumeguri:plan-inputs:v1';
+export const CATEGORIES_STORAGE_KEY = 'gero-yumeguri:categories:v1';
 export const STAY_MIN = 10;
 export const STAY_MAX = 180;
 export const DEFAULT_PLAN_INPUTS = Object.freeze({ endTime: '17:00', goal: 'station', count: 3, stay: 45 });
@@ -45,6 +48,32 @@ export function savePlanInputs(inputs, storage = browserStorage()) {
     return true;
   } catch (error) {
     console.warn('入力を保存できませんでした', error);
+    return false;
+  }
+}
+
+export function loadVisibleCategories(storage = browserStorage()) {
+  if (!storage) {
+    return sanitizeVisibleCategories(null);
+  }
+  try {
+    const raw = storage.getItem(CATEGORIES_STORAGE_KEY);
+    return sanitizeVisibleCategories(raw ? JSON.parse(raw) : null);
+  } catch (error) {
+    console.warn('前回の表示の種類を読み込めませんでした', error);
+    return sanitizeVisibleCategories(null);
+  }
+}
+
+export function saveVisibleCategories(ids, storage = browserStorage()) {
+  if (!storage) {
+    return false;
+  }
+  try {
+    storage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(sanitizeVisibleCategories(ids)));
+    return true;
+  } catch (error) {
+    console.warn('表示の種類を保存できませんでした', error);
     return false;
   }
 }
