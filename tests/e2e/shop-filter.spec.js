@@ -97,3 +97,50 @@ test('shows English cuisine groups', async ({ page }) => {
   await chip(page, 'Izakaya').click();
   await expect(page.locator('.shop-pin')).toHaveCount(1);
 });
+
+const evening = (page) => page.getByLabel('夜（19時以降）も開いている店だけ');
+
+test('evening filter keeps restaurants open after 7 pm', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  await evening(page).check();
+  await expect(page.locator('.shop-pin')).toHaveCount(1);
+  await expect(page.locator('.shop-pin.shop-id-osm-node-4')).toHaveCount(1);
+  await page.getByRole('tab', { name: '一覧' }).click();
+  await expect(page.locator('#facility-list .shop-card h3')).toHaveText(['テスト酒場']);
+});
+
+test('evening filter combines with the cuisine', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  await chip(page, 'そば・麺').click();
+  await evening(page).check();
+  await expect(page.locator('.shop-pin')).toHaveCount(0);
+  await chip(page, '居酒屋').click();
+  await expect(page.locator('.shop-pin')).toHaveCount(1);
+});
+
+test('open-only and evening filter combine in the list', async ({ page }) => {
+  await openList(page);
+  await foodButton(page).click();
+  await evening(page).check();
+  await page.getByLabel('今から行けるところだけ').check();
+  // テスト酒場は 10:00 にはまだ開いていない（later）
+  await expect(page.locator('#facility-list .shop-card')).toHaveCount(0);
+  await expect(page.locator('#facility-list .facility-card:not(.shop-card)').first()).toBeVisible();
+});
+
+test('evening filter is off again after reopening', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  await evening(page).check();
+  await page.reload();
+  await expect(evening(page)).not.toBeChecked();
+  await expect(page.locator('.shop-pin')).toHaveCount(SHOPS.length);
+});
+
+test('shows the English evening filter', async ({ page }) => {
+  await openApp(page, { path: '/?lang=en' });
+  await page.locator('#category-bar').getByRole('button', { name: 'Restaurants' }).click();
+  await expect(page.getByLabel('Only restaurants open after 7 pm')).toBeVisible();
+});

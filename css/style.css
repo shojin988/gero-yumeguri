@@ -158,6 +158,8 @@ dialog::backdrop { background: #00000066; }
   background: var(--surface); color: inherit; font-size: .85rem; white-space: nowrap;
 }
 .cuisine-chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-text); }
+.evening-filter { display: flex; align-items: center; gap: 6px; min-height: 44px; font-size: .85rem; }
+.evening-filter input { width: 20px; height: 20px; margin: 0; }
 
 /* 飲食店のカード */
 .status-chip.status-unknown { background: var(--surface); color: var(--muted); border: 1px solid var(--closed); }

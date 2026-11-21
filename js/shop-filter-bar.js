@@ -23,7 +23,14 @@ export function createShopFilterBar({ container, onChange }) {
     onClick: () => update({ group: group.id }),
   }));
 
+  const eveningCheckbox = el('input', {
+    type: 'checkbox',
+    checked: filter.eveningOnly,
+    onChange: () => update({ eveningOnly: eveningCheckbox.checked }),
+  });
+
   container.replaceChildren(
     el('div', { className: 'cuisine-chips', role: 'group', 'aria-label': t('shopFilter.label') }, chips),
+    el('label', { className: 'evening-filter' }, [eveningCheckbox, t('shopFilter.evening')]),
   );
 }
