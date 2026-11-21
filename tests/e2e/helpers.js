@@ -15,15 +15,16 @@ const SHOPS_FIXTURE = readFileSync(new URL('./fixtures/shops.json', import.meta.
 export const SHOPS = JSON.parse(SHOPS_FIXTURE).shops;
 
 // 既定では混雑データは取れない扱いにして、時刻からの判定だけで動く画面を確かめる。
-// 飲食店はテスト用の3軒（fixtures/shops.json）に固定し、shops: 'fail' で読み込み失敗にする。
+// 飲食店はテスト用の店（fixtures/shops.json）に固定し、shops: 'fail' で読み込み失敗、shops にデータを渡すとそれを返す。
 // savedCategories を渡すと、開く前に「表示する種類」を保存しておく（温泉のピンが出ない場合は待たない）。
 export async function openApp(page, { now = MONDAY_10AM, congestion = null, path = '/', shops = 'fixture', savedCategories = null } = {}) {
   if (savedCategories !== null) {
     await page.addInitScript((value) => localStorage.setItem('gero-yumeguri:categories:v1', value), JSON.stringify(savedCategories));
   }
+  const shopsBody = typeof shops === 'object' ? JSON.stringify(shops) : SHOPS_FIXTURE;
   await page.route('**/data/shops.json', (route) => (shops === 'fail'
     ? route.abort()
-    : route.fulfill({ status: 200, contentType: 'application/json', body: SHOPS_FIXTURE })));
+    : route.fulfill({ status: 200, contentType: 'application/json', body: shopsBody })));
   await page.route(CONGESTION_URL, (route) => (congestion
     ? route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(congestion) })
     : route.abort()));

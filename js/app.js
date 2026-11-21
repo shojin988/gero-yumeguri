@@ -130,20 +130,21 @@ function walkableFacilities() {
   return walkable.length > 0 ? walkable : state.data.facilities;
 }
 
-// 段が出たり消えたりすると地図の高さが変わるので、そのときだけ地図の大きさを取り直す
+// 段を出し入れしたら true を返す（地図の高さが変わるので、呼び出し側が大きさを取り直す）
 function updateShopFilterVisibility() {
   const show = state.visibleCategories.includes('food') && state.shops !== null;
-  if (elements.shopFilter.hidden === show) {
-    elements.shopFilter.hidden = !show;
-    mapView.refreshSize();
+  if (elements.shopFilter.hidden !== show) {
+    return false;
   }
+  elements.shopFilter.hidden = !show;
+  return true;
 }
 
 function renderAll() {
   if (!state.data) {
     return;
   }
-  updateShopFilterVisibility();
+  const shopFilterChanged = updateShopFilterVisibility();
   const context = buildContext();
   const onsenItems = buildFacilityItems({
     facilities: state.data.facilities,
@@ -173,6 +174,10 @@ function renderAll() {
   listView.render(visible, { originLabel: context.originLabel, liveAt, noCategory: state.visibleCategories.length === 0 });
   renderNotices(context);
   elements.infoStale.hidden = !context.isStale;
+  // 店のお知らせも同時に増減することがあるので、上の表示が全部そろってから測る
+  if (shopFilterChanged) {
+    mapView.refreshSize();
+  }
 }
 
 function selectTab(name) {

@@ -154,10 +154,10 @@ dialog::backdrop { background: #00000066; }
 .shop-filter[hidden] { display: none; }
 .cuisine-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
 .cuisine-chip {
-  flex: none; min-height: 44px; padding: 0 12px; border: 1px solid var(--border); border-radius: 999px;
-  background: var(--surface); color: inherit; font-size: .85rem; white-space: nowrap;
+  flex: none; min-height: 44px; padding: 0 12px; border: 1px solid var(--accent); border-radius: 999px;
+  background: var(--surface); color: var(--accent); font-size: .85rem; white-space: nowrap;
 }
-.cuisine-chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-text); }
+.cuisine-chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
 .evening-filter { display: flex; align-items: center; gap: 6px; min-height: 44px; font-size: .85rem; }
 .evening-filter input { width: 20px; height: 20px; margin: 0; }
 

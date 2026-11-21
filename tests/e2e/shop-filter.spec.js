@@ -144,3 +144,46 @@ test('shows the English evening filter', async ({ page }) => {
   await page.locator('#category-bar').getByRole('button', { name: 'Restaurants' }).click();
   await expect(page.getByLabel('Only restaurants open after 7 pm')).toBeVisible();
 });
+
+// 地図の作成を横から見て、Leaflet が覚えている地図の大きさを取り出せるようにする（テストだけの仕掛け）
+async function exposeLeafletMap(page) {
+  await page.addInitScript(() => {
+    let leaflet;
+    Object.defineProperty(window, 'L', {
+      configurable: true,
+      get: () => leaflet,
+      set: (value) => {
+        leaflet = value;
+        value.Map.addInitHook(function remember() { window.testMap = this; });
+      },
+    });
+  });
+}
+
+test('keeps the map size in step when the row and a notice change together', async ({ page }) => {
+  await exposeLeafletMap(page);
+  // 確認日が古い店データだと、飲食店を出すと同時に「古い可能性」のお知らせも出る
+  await openApp(page, { shops: { checkedOn: '2026-01-01', shops: SHOPS } });
+  const heights = () => page.evaluate(() => [window.testMap.getSize().y, document.getElementById('map').clientHeight]);
+  await foodButton(page).click();
+  await expect(page.locator('#notices')).toContainText('飲食店のデータが古い可能性があります');
+  const [shownLeaflet, shownMap] = await heights();
+  expect(shownLeaflet).toBe(shownMap);
+  await foodButton(page).click();
+  await expect(page.locator('#shop-filter')).toBeHidden();
+  const [hiddenLeaflet, hiddenMap] = await heights();
+  expect(hiddenLeaflet).toBe(hiddenMap);
+});
+
+test('outlines unselected cuisine chips like the category buttons', async ({ page }) => {
+  await openApp(page);
+  await foodButton(page).click();
+  const style = (locator) => locator.evaluate((node) => {
+    const computed = getComputedStyle(node);
+    return { border: computed.borderTopColor, color: computed.color };
+  });
+  const category = await style(foodButton(page));
+  const unselected = await style(chip(page, '和食・定食'));
+  expect(unselected.border).toBe(category.border);
+  expect(unselected.color).toBe(category.border);
+});
