@@ -47,6 +47,23 @@
       "officialUrl": null,
       "mapsUrl": "https://www.google.com/maps/search/?api=1&query=test-tei",
       "osm": null
+    },
+    {
+      "id": "osm-node-4",
+      "category": "food",
+      "name": "テスト酒場",
+      "names": { "en": "Test Izakaya" },
+      "cuisine": ["izakaya"],
+      "lat": 35.8064,
+      "lng": 137.2440,
+      "schedule": [
+        { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun", "hol"], "windows": [{ "start": "17:00", "end": "23:00", "lastEntry": "22:30" }] }
+      ],
+      "irregularClosure": false,
+      "hoursSource": "https://example.com/sakaba",
+      "officialUrl": null,
+      "mapsUrl": "https://www.google.com/maps/search/?api=1&query=test-sakaba",
+      "osm": "node/4"
     }
   ]
 }

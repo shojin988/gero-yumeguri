@@ -140,13 +140,24 @@ dialog::backdrop { background: #00000066; }
 .pin-label { padding: 1px 6px; font-size: .75rem; }
 
 /* 表示する種類の切り替え（地図・一覧の上） */
-.category-bar { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.category-bar { padding: 6px 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
 .category-bar[hidden] { display: none; }
+.category-toggle { display: flex; flex-wrap: wrap; gap: 8px; }
 .category-button {
   min-height: 44px; padding: 0 16px; border: 1px solid var(--accent); border-radius: 999px;
   background: var(--surface); color: var(--accent); font-size: .9rem;
 }
 .category-button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+
+/* 飲食店の絞り込み（飲食店がオンのときだけ出す2段目）。チップの行の中だけ横にスクロールする */
+.shop-filter { margin-top: 6px; }
+.shop-filter[hidden] { display: none; }
+.cuisine-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; }
+.cuisine-chip {
+  flex: none; min-height: 44px; padding: 0 12px; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--surface); color: inherit; font-size: .85rem; white-space: nowrap;
+}
+.cuisine-chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-text); }
 
 /* 飲食店のカード */
 .status-chip.status-unknown { background: var(--surface); color: var(--muted); border: 1px solid var(--closed); }

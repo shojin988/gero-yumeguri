@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { FACILITIES, openApp } from './helpers.js';
+import { FACILITIES, SHOPS, openApp } from './helpers.js';
 
 const foodButton = (page) => page.locator('#category-bar').getByRole('button', { name: '飲食店' });
 const onsenButton = (page) => page.locator('#category-bar').getByRole('button', { name: '温泉' });
@@ -21,7 +21,7 @@ test('shows restaurants in the list when toggled', async ({ page }) => {
   await openList(page);
   await foodButton(page).click();
   await expect(foodButton(page)).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('#facility-list .shop-card')).toHaveCount(3);
+  await expect(page.locator('#facility-list .shop-card')).toHaveCount(SHOPS.length);
   await expect(page.locator('#facility-list .facility-card:not(.shop-card)')).toHaveCount(FACILITIES.length);
 
   const soba = shopCard(page, 'テストそば');
@@ -51,7 +51,7 @@ test('remembers the chosen categories', async ({ page }) => {
   await page.reload();
   await expect(foodButton(page)).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('tab', { name: '一覧' }).click();
-  await expect(page.locator('#facility-list .shop-card')).toHaveCount(3);
+  await expect(page.locator('#facility-list .shop-card')).toHaveCount(SHOPS.length);
 });
 
 test('asks to choose when everything is off', async ({ page }) => {
@@ -90,7 +90,7 @@ test('toggles restaurant pins on the map', async ({ page }) => {
   await expect(page.locator('.shop-pin')).toHaveCount(0);
   await expect(page.locator('.legend-shops')).toBeHidden();
   await foodButton(page).click();
-  await expect(page.locator('.shop-pin')).toHaveCount(3);
+  await expect(page.locator('.shop-pin')).toHaveCount(SHOPS.length);
   await expect(page.locator('.shop-pin.shop-open')).toHaveCount(1);
   await expect(page.locator('.shop-pin.shop-closed')).toHaveCount(1);
   await expect(page.locator('.shop-pin.shop-unknown')).toHaveCount(1);
@@ -104,7 +104,7 @@ test('toggles restaurant pins on the map', async ({ page }) => {
 
 test('shows the map when reopened with restaurants only', async ({ page }) => {
   await openApp(page, { savedCategories: ['food'] });
-  await expect(page.locator('.shop-pin')).toHaveCount(3);
+  await expect(page.locator('.shop-pin')).toHaveCount(SHOPS.length);
   await expect(page.locator('.pin')).toHaveCount(0);
   await expect(page.locator('.leaflet-tile').first()).toBeAttached();
 });
@@ -124,7 +124,7 @@ test('names restaurant pins for screen readers', async ({ page }) => {
 test('draws restaurant pins below onsen pins', async ({ page }) => {
   await openApp(page);
   await foodButton(page).click();
-  await expect(page.locator('.leaflet-shops-pane .shop-pin')).toHaveCount(3);
+  await expect(page.locator('.leaflet-shops-pane .shop-pin')).toHaveCount(SHOPS.length);
   const zIndex = (selector) => page.locator(selector).evaluate((node) => Number(getComputedStyle(node).zIndex));
   expect(await zIndex('.leaflet-shops-pane')).toBeLessThan(await zIndex('.leaflet-overlay-pane'));
 });
@@ -148,7 +148,7 @@ test('keeps the plan route when shops are toggled', async ({ page }) => {
   await page.getByRole('button', { name: '地図で見る' }).first().click();
   await expect(page.locator('.route-number')).toHaveCount(3);
   await foodButton(page).click();
-  await expect(page.locator('.shop-pin')).toHaveCount(3);
+  await expect(page.locator('.shop-pin')).toHaveCount(SHOPS.length);
   await expect(page.locator('.route-line')).toHaveCount(1);
   await expect(page.locator('.route-number')).toHaveCount(3);
 });

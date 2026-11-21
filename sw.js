@@ -25,6 +25,7 @@ const ASSETS = [
   './js/shop-card.js',
   './js/shop-items.js',
   './js/shop-filter.js',
+  './js/shop-filter-bar.js',
   './js/storage.js',
   './data/facilities.json',
   './data/holidays.json',

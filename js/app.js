@@ -12,6 +12,8 @@ import {
 import { createMapView } from './map-view.js';
 import { createListView } from './list-view.js';
 import { createPlanView } from './plan-view.js';
+import { DEFAULT_SHOP_FILTER, filterShopItems } from './shop-filter.js';
+import { createShopFilterBar } from './shop-filter-bar.js';
 import { buildShopItems } from './shop-items.js';
 import {
   loadPlanInputs, loadVisibleCategories, savePlanInputs, saveVisibleCategories,
@@ -45,6 +47,8 @@ const elements = {
   infoStale: document.getElementById('info-stale'),
   infoShopsCheckedOn: document.getElementById('info-shops-checked-on'),
   categoryBar: document.getElementById('category-bar'),
+  categoryToggle: document.getElementById('category-toggle'),
+  shopFilter: document.getElementById('shop-filter'),
 };
 
 const mapView = createMapView({
@@ -75,6 +79,8 @@ let state = {
   positionStatus: 'pending',
   planInputs: loadPlanInputs(),
   visibleCategories: loadVisibleCategories(),
+  // 料理の絞り込みはその日の選択なので保存しない
+  shopFilter: DEFAULT_SHOP_FILTER,
 };
 
 function setState(patch) {
@@ -124,10 +130,20 @@ function walkableFacilities() {
   return walkable.length > 0 ? walkable : state.data.facilities;
 }
 
+// 段が出たり消えたりすると地図の高さが変わるので、そのときだけ地図の大きさを取り直す
+function updateShopFilterVisibility() {
+  const show = state.visibleCategories.includes('food') && state.shops !== null;
+  if (elements.shopFilter.hidden === show) {
+    elements.shopFilter.hidden = !show;
+    mapView.refreshSize();
+  }
+}
+
 function renderAll() {
   if (!state.data) {
     return;
   }
+  updateShopFilterVisibility();
   const context = buildContext();
   const onsenItems = buildFacilityItems({
     facilities: state.data.facilities,
@@ -138,7 +154,10 @@ function renderAll() {
     congestion: state.congestion?.places ?? null,
   });
   const shopItems = state.shops
-    ? buildShopItems({ shops: state.shops.shops, day: context.day, now: context.now, origin: context.origin.point })
+    ? filterShopItems(
+      buildShopItems({ shops: state.shops.shops, day: context.day, now: context.now, origin: context.origin.point }),
+      state.shopFilter,
+    )
     : [];
   const visible = filterByCategory([...onsenItems, ...shopItems], state.visibleCategories);
   const liveAt = state.congestion?.fetchedAt ?? null;
@@ -242,12 +261,16 @@ async function loadShops() {
 
 function setupCategoryToggle() {
   createCategoryToggle({
-    container: elements.categoryBar,
+    container: elements.categoryToggle,
     initial: state.visibleCategories,
     onChange: (visibleCategories) => {
       saveVisibleCategories(visibleCategories);
       setState({ visibleCategories });
     },
+  });
+  createShopFilterBar({
+    container: elements.shopFilter,
+    onChange: (shopFilter) => setState({ shopFilter }),
   });
 }
 

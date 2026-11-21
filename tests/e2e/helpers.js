@@ -12,6 +12,8 @@ export const CONGESTION_URL = 'https://kk-congestion-saas.antipasto.jp/json/GERO
 
 const SHOPS_FIXTURE = readFileSync(new URL('./fixtures/shops.json', import.meta.url), 'utf8');
 
+export const SHOPS = JSON.parse(SHOPS_FIXTURE).shops;
+
 // 既定では混雑データは取れない扱いにして、時刻からの判定だけで動く画面を確かめる。
 // 飲食店はテスト用の3軒（fixtures/shops.json）に固定し、shops: 'fail' で読み込み失敗にする。
 // savedCategories を渡すと、開く前に「表示する種類」を保存しておく（温泉のピンが出ない場合は待たない）。
