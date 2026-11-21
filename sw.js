@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gero-yumeguri-v6';
+const CACHE_NAME = 'gero-yumeguri-v7';
 
 const ASSETS = [
   './',
@@ -24,6 +24,7 @@ const ASSETS = [
   './js/planner.js',
   './js/shop-card.js',
   './js/shop-items.js',
+  './js/shop-filter.js',
   './js/storage.js',
   './data/facilities.json',
   './data/holidays.json',
